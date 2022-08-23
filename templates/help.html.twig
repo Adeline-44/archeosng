@@ -1,0 +1,246 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <div class="container mx-auto pt-5">
+        <div class="row justify-content-center rounded-pill">
+            <div class="titre col-5 text-white">
+                <h1>Reprise d'activités</h1>
+            </div>
+            <div class="col-2 titre">
+                <div class="row py-0"><h5>Service carrières</h5></div>
+                <div class="row py-0"><h6>02.40.20.00.71</h6></div>
+            </div>
+            <div class="col-2 titre">
+                <img src={{ asset('img/Logo.png') }} width=50% alt="Logo CDG">
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-9 page-help pt-3">
+                Cet outil ne concerne que les cas généraux sans utilisation des droits d’option.
+                <h3><a id="page-help">Mode de calcul</a></h3>
+                Calcul de reprise d’ancienneté pour une 1<sup>ère</sup> nomination dans la FPT.
+
+
+                <h5 class="page-help">Calcul du nombre jours retenus pour les fonctionnaires nommés sur un poste de catégorie A ou B</h5>
+                <p>
+                    Pour les personnes nommées fonctionnaires dans un grade de catégorie A ou B, quelle que soit la durée hebdomadaire des services antérieurs (privés ou publics), le temps effectué préalablement n'est pas reconverti avant l'application des règles de reprise.
+                <p>
+                    Exemple pour un agent ayant effectué 2 ans comme non titulaire de catégorie B à 17h30 hebdomadaires nommé à  temps complet, le calcul sera : 24 mois × ¾ = 18 mois.
+
+                <h4>Règles de classement pour une nomination en catégorie A</h4>
+                <p>
+                    <span class="italic">Cela ne concerne que les grades relevant du décret n°2006-1695.</span><h5>Reprise des services de droit public</h5>
+                <p>
+                    Les services accomplis dans des fonctions du niveau de catégorie A sont repris à raison de :
+                <ul>
+                    <li>De la moitié de leur durée jusqu’à 12 ans</li>
+                    <li>Des ¾ de leur durée au-delà de 12 ans</li>
+                </ul>
+                <p>
+                    Les services accomplis dans des fonctions du niveau de catégorie B sont repris à raison de :
+                <ul>
+                    <li>Rien pour les 7 premières années</li>
+                    <li>6/16 pour la fraction entre 7 et 16 ans</li>
+                    <li>9/16 pour l’ancienneté excédant 16 ans</li>
+                </ul>
+                <p>
+                    Les services accomplis dans des fonctions du niveau de catégorie C sont repris à raison de :
+                <ul>
+                    <li>Rien pour les 10 premières années</li>
+                    <li>6/16 pour l’ancienneté excédant 10 ans</li>
+                </ul>
+                <p>
+                    Option : Les agents qui ont occupé des fonctions de différents niveaux peuvent reprendre la totalité de leurs services comme s’ils avaient été accomplis dans les fonctions de niveau le moins élevé.
+                <h5>Reprise des services de droit privé.</h5>
+                <p>
+                    Reprise de la moitié de la durée totale de ces activités professionnelles dans la limite de 7 ans.
+                <p>
+                    Reprise uniquement des services privés d’un niveau au moins équivalent aux fonctions exercées par les membres du cadre d’emplois de nomination. Voir les arrêtés suivants :
+                <ul>
+                    <li>Arrêté du 10 août 2007 (JO 3 oct 2007) qui fixe la liste des professions prises en compte pour le classement dans le cadre d’emplois d’attaché</li>
+                    <li>Arrêté du 22 août 2008 (JO 17 sept 2008) qui fixe la liste des professions prises en compte pour le classement dans le cadre d’emplois des ingénieurs</li>
+                    <li>Arrêté du 10 mars 2008 (JO 19 mars 2008) qui fixe la liste des professions prises en compte pour le classement dans le cadre d’emplois des conservateurs du patrimoine</li>
+                    <li>Arrêté du 5 mars 2009 (JO 30 avril 2009) qui fixe la liste des professions prises en compte pour le classement dans le cadre d’emplois des conservateurs des bibliothèques, des bibliothécaires et des attachés de conservation.</li>
+                </ul>
+                <h4>Règles de classement pour une nomination en catégorie B</h4>
+                <p>
+                    <span class="italic">Cela concerne seulement l’accès à un cadre d’emplois de catégorie B issu du nouvel espace statutaire (NES) à l’exception de la filière médico-sociale.</span>
+                <h5 class="page-help">Reprise des services de droit public</h5>
+                <p>
+                    Prise en compte des services accomplis :
+                <ul>
+                    <li>Dans un emploi de niveau au moins équivalent à celui de la catégorie B à raison de ¾ de leur durée</li>
+                    <li>Dans un emploi de niveau équivalent à la catégorie C à raison de la moitié de leur durée</li>
+                </ul>
+                <h5 class="page-help">Reprise des services de droit privé</h5>
+                <p>
+                    Reprise à raison de ½ de la durée totale des services accomplis dans des fonctions au moins équivalentes à un niveau de catégorie B dans la limite de 8 ans.
+                <p>
+                    L’arrêté ministériel du 10 avril 2007 (JO 26 avril 2007) fixe la liste des professions prises en compte et les conditions d’application de cette disposition.
+
+                <h4>Règles de classement pour une nomination en catégorie C</h4>
+                <h5 class="page-help">Calcul du nombre jours retenus pour les fonctionnaires nommés sur un poste de catégorie C uniquement</h5>
+                <table style="width: 100%; text-align:center;border: 1px solid #ccc;padding: 10px;margin-bottom: 10px;">
+                    <tr>
+                        <td rowspan="2"><span style="color:#009033"><strong>JOURS RETENUS</strong></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;= </td>
+                        <td style="border-bottom:1px solid #ccc;"><span style="color:#B40000"><strong>JOURS EFFECTUES</strong></span> x <span style="color:#DFA700"><strong>HEURES EFFECTUEES</strong></span></td>
+                    </tr>
+                    <tr>
+                        <td><span style="color:#000AA3"><strong>BASE STAGIAIRE MENSUELLE</strong></span></td>
+                    </tr>
+                </table>
+
+                <div style="float:left;width:300px;">
+                    exemple pour un agent recruté sur un temps plein (soit 151.67 heures par mois) qui a travaillé 74,97 heures du 1er au 31 mai 2010 :
+                </div>
+                <table style="float:right;width:300px; text-align:center;border: 1px solid #ccc;padding: 10px">
+                    <tr>
+                        <td rowspan="2"><span style="color:#009033"><strong>14,83</strong></span>&nbsp;&nbsp;= </td>
+                        <td style="border-bottom:1px solid #ccc;"><span style="color:#B40000"><strong>30</strong></span> x <span style="color:#DFA700"><strong>74,97</strong></span></td>
+                    </tr>
+                    <tr>
+                        <td><span style="color:#000AA3"><strong>151,67</strong></span></td>
+                    </tr>
+                </table>
+                <div class="clear">&nbsp;</div>
+                <br /><br /><br />
+                <p>
+                    Les <span style="color:#B40000;margin-top: auto"><strong>JOURS EFFECTUES</strong></span> correspondent au nombre de jours entre la date de début et la date de fin de période.
+                    Ce nombre est calculé selon la règle comptable des trentièmes. Ainsi, une période allant du 1er au 31 représente 30 jours.
+                    De même, une période allant du 1er au 28 février représente également 30 jours.
+                <p>
+                    Les <span style="color:#DFA700"><strong>HEURES EFFECTUEES</strong></span> correspondent au nombre d'heures payées, inscrites sur le bulletin de salaire relatif à la période considérée.
+                <p>
+                    La <span style="color:#000AA3"><strong>BASE STAGIAIRE MENSUELLE</strong></span> correspond au nombre d'heures que va effectuer chaque mois l'agent à compter de son recrutement.
+
+                <h5>calcul du total des jours retenus pour l'ensemble des périodes effectuées</h5>
+                <p>
+                    Le total du nombre de jours retenus pour chaque type de service, public ou privé, correspond à la somme des <span style="color:#009033"><strong>JOURS RETENUS</strong></span>, arrondie à l'entier immédiatement inférieur.
+                    Ainsi, si cette somme est de 272,99 jours, on retiendra uniquement 272 jours.
+
+                <h5>calcul du total des jours pris en compte en fonction du type de service effectué</h5>
+                <table style="width: 100%; text-align:center;border: 1px solid #ccc;padding:0px;margin-bottom: 10px;background:#ccc;cellpadding:0;cellspacing:1">
+                    <tr>
+                        <td style="background:#fff;">secteur public</td>
+                        <td style="background:#fff;">TOTAL des <span style="color:#009033"><strong>JOURS RETENUS</strong></span> pour le secteur public * <strong>0.75</strong></td>
+                    </tr>
+                    <tr>
+                        <td style="background:#fff;">secteur privé</td>
+                        <td style="background:#fff;">TOTAL des <span style="color:#009033"><strong>JOURS RETENUS</strong></span> pour le secteur privé * <strong>0.50</strong></td>
+                    </tr>
+                </table>
+                <p>
+                    La reprise de l'ancienneté d'un agent varie en fonction du type de service considéré. Ainsi, si l'agent décide de
+                    fonder le calcul à partir de ses périodes d'emploi dans le secteur public, il pourra prétendre à 75% du total des jours retenus pour ce type de service.
+                    En revanche, les périodes effectuées dans le secteur privé ne peuvent être reprises qu'a hauteur de 50%.
+
+                <h3><a id="page-help">Créer un nouveau calcul</a></h3>
+                <p>
+                    Lorsque vous n'avez encore créé aucun calcul durant la session, c'est la page de création
+                    d'un nouveau calcul qui s'affiche.
+                <p>
+                    Pour créer un nouveau calcul, remplissez le formulaire en précisant le poste sur
+                    lequel l'agent est recruté, la catégorie correspondante, le cadre d'emplois s'il
+                    s'agit de la catégorie A, ainsi que ses nom, prénom et coordonnées. Les informations
+                    optionnelles, caractérisées par l'absence d'une astérisque rouge, n'ont aucune incidence sur le
+                    calcul, mais seront utilisées pour la création d'un dossier récapitulatif à imprimer.
+
+                <p>
+                    Une fois le formulaire rempli, cliquez sur le bouton "commencer un nouveau calcul".
+                <p>
+                    Notez que, après avoir commencé un premier calcul, vous pouvez à tout moment en
+                    commencer un autre en cliquant sur le bouton "nouveau" en haut à gauche de l'écran.
+
+                <h3><a id="page-help">Reprendre un calcul</a></h3>
+                <p>
+                    Pour plus de simplicité, l'application ne réclame pas la création d'un compte
+                    utilisateur pour être utilisée. Par conséquent, vos calculs sont attachés à la
+                    durée de votre session. Or, lorsque vous fermez votre navigateur web,
+                    votre session est close. C'est pourquoi, lors de votre prochain accès à l'application,
+                    vos calculs ne seront plus affichés.
+                <p>
+                    Toutefois, il vous est possible de récupérer un calcul déjà commencé en utilisant son "UID".
+                    Il s'agit de son identifiant unique que vous trouverez systématiquement indiqué pour chaque calcul en haut à droite de l'écran.
+                    Lorsque vous souhaitez reprendre un calcul, inscrivez simplement cet identifiant sur le formulaire "poursuivre un calcul précédent" situé sous le formulaire de création d'un nouveau calcul.
+
+                <h3><a id="page-help">L'écran de calcul</a></h3>
+                <p>
+                    Lorsque vous avez créé un nouveau calcul, ou repris un ancien calcul grâce à son UID, ou encore si votre session comporte déjà un calcul en cours,
+                    vous êtes dirigé vers l'écran principal de l'application permettant de saisir les données.
+                <p>
+                    Cet écran se présente comme suit :
+                <p>
+                    En haut de l'écran se trouvent plusieurs boutons vous permettant de passer d'un calcul à l'autre, de créer un nouveau calcul,
+                    d'imprimer le dossier récapitulatif du calcul en cours, d'accéder à l'aide.
+                <p>
+                    Immédiatement, en dessous vous trouverez les nom et prénom de l'agent concerné par le calcul en cours, ainsi
+                    que l'UID permettant de reprendre le calcul ultérieurement.
+                <p>
+                    Dans la partie centrale de l'écran figurent les différents champs permettant d'ajouter une période de
+                    travail au calcul, ainsi que de modifier la base stagiaire mensuelle/hebdomadaire (uniquement dans le cas
+                    d'un calcul pour un poste en catégorie C).
+                <p>
+                    Enfin, dans la partie inférieure se trouvent 3 onglets. Le premier indique le total
+                    du nombre de jours retenus ainsi que le nombre de jours à prendre en compte. Le deux onglets
+                    suivant présentent le détail des périodes de travail pour chaque type de service, public et privé.
+                <p>
+                    A titre indicatif, votre identifiant de session figure en bas de la page.
+
+                <h3><a id="page-help">Ajouter une période de travail</a></h3>
+                <p>
+                    Pour ajouter une période de travail au calcul en cours, renseignez les dates de début et de fin
+                    de période. Les dates sont au format JJ/MM/AAAA. Un calendrier d'assistance à la saisie est
+                    accessible en cliquant sur le pictogramme à droite du champ. Lorsque vous saisissez la date
+                    de début de période, la date de fin de période est automatiquement positionnée sur le même mois
+                    de la même année afin de simplifier la saisie.
+                <p>
+                    Notez que la date de fin de période ne peut évidemment pas être antérieure à la date de début.
+                <p>
+                    Dans le cas d'un calcul de reprise d'ancienneté pour un poste en catégorie C, vous devez ensuite
+                    indiquer le nombre d'heures travaillées pour la période donnée. Il s'agit ici des heures payées telles
+                    qu'indiquées sur le bulletin de salaire, sans tenir compte des heures supplémentaires.
+                <p>
+                    Sélectionnez ensuite le type de service effectué durant cette période, public ou privé.
+                <p>
+                    Si vous effectuez un calcul qui concerne les catégories A ou B, il vous sera demandé,
+                    selon qu'il s'agit d'un service dans le public ou dans le privé, la catégorie ou la profession (conformément
+                    à la nomenclarure PCS ESE 2003 de l'Insee) correspondant au poste occupé durant la période.
+                    Si vous ne trouvez pas la profession adéquate dans la liste, cela signifie que la période
+                    de travail ne peut être prise en compte pour ce calcul.
+                <p>
+                    Enfin, appuyez sur le bouton "ajouter la période"
+                <p>
+                    Lorsqu'une période est ajoutée, les données des trois onglets sont mis immédiatement à jour avec les nouvelles données.
+
+                <h3><a id="page-help">Supprimer une période de travail</a></h3>
+                <p>
+                    Pour supprimer une période de travail, ouvrez l'onglet public ou privé contenant la période à supprimer.
+                    Cliquez sur le bouton en forme de croix situé à l'extrémité droite de la ligne concernée.
+                    Lorsque la période est supprimée, les totaux sont immédiatement mis à jour.
+
+                <h3><a id="page-help">Modifier la base de calcul pour la proratisation</a></h3>
+                <p style="text-decoration:underline;">
+                    Ceci ne concerne que les reprises d'activités pour les agents nommés sur un poste de catégorie C.
+                <p>
+                    Si l'agent n'est pas recruté sur un temps plein, vous pouvez modifier la base de calcul. Pour cela, indiquez la
+                    base hebdomadaire à prendre en compte. Les calculs sont alors mis à jour
+                    pour l'ensemble des périodes ainsi que pour les totaux.
+
+                <p>
+                    Lorsque vous avez terminé la saisie des périodes de travail, vous avez la possibilité d'imprimer un
+                    dossier pésentant le détail des périodes ajoutées, le résultat des calculs ainsi qu'un  formulaire
+                    standard à remettre à l'agent pour complément et signature.
+                <p>
+                    Pour cela, cliquez simplement sur le bouton "imprimer" en haut à droite de l'écran. Un fichier PDF contenant
+                    l'ensemble des informations sera généré. Notez que ce fichier comporte en haut à droite la mention de
+                    l'UID afin de vous permettre de reprendre le calcul ultérieurement, par exemple si vous constatez une erreur lors de la saisie.
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

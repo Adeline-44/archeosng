@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container mx-auto pt-5">
+        <div class="row justify-content-center rounded-pill">
+            <div class="titre col-5 text-white">
+                <h1>Reprise d'activités</h1>
+            </div>
+            <div class="col-2 titre">
+                <div class="row py-0"><h5>Service carrières</h5></div>
+                <div class="row py-0"><h6>02.40.20.00.71</h6></div>
+            </div>
+            <div class="col-2 titre">
+                <img src={{ asset('img/Logo.png') }} width=50% alt="Logo CDG">
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-2 pt-3 control-panel">
+                <button type="button" class="btn btn-outline-primary">Nouveau</button>
+            </div>
+            <div class="col-5 pt-3 control-panel">
+
+            </div>
+            <div class="col-2 pt-3 control-panel">
+                <a href="{{ path('help') }}" target="_blank">
+                    <button type="button" class="btn btn-outline-secondary">Aide</button>
+                </a>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-9 page-help pt-3">
+                <div class="control-panel">
+                    Cet outil permet de calculer la reprise d'ancienneté pour les personnes nommées fonctionnaire
+                    <b>dans un grade de catégorie A, B ou C</b>. Il permet également de prendre en compte dans le calcul la durée du <b>service militaire.</b>
+                    <br><br>
+                    L'outil <b>ne peut pas être utilisé pour un classement sur un grade C2</b>. Voir
+                    <a href="https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000032526775&fastPos=1&fastReqId=1271601943&categorieLien=cid&oldAction=rechTexte" target="_blank">décret 2016-596</a>
+                    <a href="https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000032526775&fastPos=1&fastReqId=1271601943&categorieLien=cid&oldAction=rechTexte#LEGIARTI000032540906" target="_blank">art 5-II</a>
+                    et <a href="https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000032526775&fastPos=1&fastReqId=1271601943&categorieLien=cid&oldAction=rechTexte#LEGIARTI000032540908" target="_blank">art 6-II</a>
+                    pour les modalités de reclassement.
+                </div>
+                <br />
+                <h2>Nouveau Calcul</h2>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
