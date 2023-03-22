@@ -16,7 +16,9 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-2 pt-3 control-panel">
-                <button type="button" class="btn btn-outline-primary">Nouveau</button>
+                <a href="{{ path('app_nouveau_calcul') }}">
+                    <button type="button" class="btn btn-outline-primary">Nouveau</button>
+                </a>
             </div>
             <div class="col-5 pt-3 control-panel">
 
@@ -41,8 +43,10 @@
                 </div>
                 <br />
                 <h2>Nouveau Calcul</h2>
+                <h2>Poursuivre le calcul précédent</h2>
             </div>
         </div>
     </div>
 
 {% endblock %}
+

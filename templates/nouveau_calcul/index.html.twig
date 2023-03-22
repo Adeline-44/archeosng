@@ -1,0 +1,180 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container mx-auto pt-5">
+        <div class="row justify-content-center rounded-pill">
+            <div class="titre col-5 text-white">
+                <h1>Reprise d'activités</h1>
+            </div>
+            <div class="col-2 titre">
+                <div class="row py-0"><h5>Service carrières</h5></div>
+                <div class="row py-0"><h6>02.40.20.00.71</h6></div>
+            </div>
+            <div class="col-2 titre">
+                <img src={{ asset('img/Logo.png') }} width=50% alt="Logo CDG">
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-2 pt-3 control-panel">
+                <a href="{{ path('app_nouveau_calcul') }}">
+                    <button type="button" class="btn btn-outline-primary">Nouveau</button>
+                </a>
+            </div>
+            <div class="col-5 pt-3 control-panel">
+
+            </div>
+            <div class="col-2 pt-3 control-panel">
+                <a href="{{ path('help') }}" target="_blank">
+                    <button type="button" class="btn btn-outline-secondary">Aide</button>
+                </a>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-9 page-help pt-3">
+                <div class="control-panel">
+                    Cet outil permet de calculer la reprise d'ancienneté pour les personnes nommées fonctionnaire dans un grade de catégorie A, B ou C.<br />
+                    <ul>
+                        <li><b>Pour la catégorie C :</b> l’outil ne peut pas être utilisé pour un classement sur un grade C2.
+                            Voir <a href="https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000032526775&fastPos=1&fastReqId=1271601943&categorieLien=cid&oldAction=rechTexte" target="_blank">décret n°2016-596 </a>
+                            <a href="https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000032526775&fastPos=1&fastReqId=1271601943&categorieLien=cid&oldAction=rechTexte#LEGIARTI000032540906" target="_blank">art 5-II</a> et
+                            <a href="https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000032526775&fastPos=1&fastReqId=1271601943&categorieLien=cid&oldAction=rechTexte#LEGIARTI000032540908" target="_blank">art 6-II </a>pour les modalités de classement.
+                        </li>
+                        <li><b>Pour la catégorie B :</b>l’outil ne peut être utilisé que pour l’accès au 1er grade d’un cadre d’emplois de catégorie B autre que ceux du Nouvel Espace Statutaire (cadres d’emplois du NES = animateurs, assistants d’enseignement artistique, assistants de conservation du patrimoine et des bibliothèques, chefs de service de police municipale, éducateurs des activités physiques et sportives, rédacteurs, techniciens et lieutenant de sapeurs-pompiers professionnels). Pour l’accès au 2ème grade d’un cadre d’emplois du NES, il faut ensuite appliquer l’article 21 du décret n° 2010-329
+                        </li>
+                        <li><b>Pour la catégorie A : </b>
+                            l’outil ne peut pas être utilisé pour d’autres cadres d’emplois que les suivants : <i>attachés, ingénieurs, conservateurs du patrimoine, conservateurs des bibliothèques, attachés de conservation du patrimoine, bibliothécaires, directeurs d’établissements d’enseignement artistique, professeurs d’enseignement artistique, conseillers des activités physiques et sportives, psychologues, directeurs de police municipale, conception et direction des sapeurs-pompiers professionnels et capitaines, commandants et lieutenants-colonels de sapeurs-pompiers professionnels.</i>
+                        </li>
+                    </ul>
+                    <br>
+                    Cet outil permet également de prendre en compte dans le calcul la durée effective du service national et la durée effective du service civique ou du volontariat international.
+                  </div>
+                <br />
+                {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+                {% endfor %}
+                <h2>Nouveau Calcul</h2>
+                {{ form_start(form) }}
+                <div class="my-custom-class-for-errors">
+                    {{ form_errors(form) }}
+                </div>
+                <div class="row page-create">
+                    <div class="col-8">
+                        <b>{{ form_label(form.poste) }}</b> {{ form_widget(form.poste) }}
+                    </div>
+                    <div class="col-4">
+                        {{ form_row(form.categorie) }}
+                    </div>
+                </div>
+                <div class="row page-create">
+                    <div class="col-8">
+                        {{ form_row(form.cadreEmploi) }}
+                    </div>
+                </div>
+                <div class="row page-create">
+                    <div class="col-2">
+                        {{ form_row(form.militaire) }}
+                    </div>
+                    <div class="col-2">
+                        {{ form_label(form.militaireMonths) }}
+                        {{ form_widget(form.militaireMonths) }}
+                    </div>
+                </div>
+                <div class="row page-create">
+                    <div class="col-3">
+                        {{ form_row(form.genre) }}
+                    </div>
+                    <div class="col-5">
+                        {{ form_row(form.lastName) }}
+                    </div>
+                    <div class="col-4">
+                        {{ form_row(form.firstName) }}
+                    </div>
+                </div>
+                <div class="row page-create">
+                    <div class="col-8">
+                        {{ form_row(form.adr1) }}
+                    </div>
+                    <div class="col-4">
+                        {{ form_row(form.adr2) }}
+                    </div>
+                </div>
+                <div class="row page-create">
+                    <div class="col-2">
+                        {{ form_row(form.cp) }}
+                    </div>
+                    <div class="col-4">
+                        {{ form_row(form.city) }}
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+
+
+
+                <h2>Poursuivre le calcul précédent</h2>
+                {{ form_start(formulaire) }}
+                <div class="my-custom-class-for-errors">
+                    {{ form_errors(formulaire) }}
+                </div>
+
+                <div class="row page-create">
+                    <div class="col-8">
+                        {{ form_rest(formulaire) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+    <script>
+        window.onload = () => {
+            var $type = $('#employee_militaire');
+            var $cat = $('#employee_categorie');
+            //qd on sélectionne le type
+            $type.change(function() {
+                //on récupère le formulaire
+                var $form = $(this).closest('form');
+                //on génère des data vide où on va mettre le type sélectionné
+                var data = {};
+                data[$type.attr('name')] = $type.val();
+                console.log(data);
+                // on submit les data en ajax
+                $.ajax({
+                    url: $form.attr('action'),
+                    type: $form.attr('method'),
+                    data: data,
+                    complete: function(html) {
+                        $('#employee_militaireMonths').replaceWith($(html.responseText).find('#employee_militaireMonths'));
+                    }
+                });
+            })
+
+            $cat.change(function() {
+                //on récupère le formulaire
+                var $form = $(this).closest('form');
+                //on génère des data vide où on va mettre le type sélectionné
+                var data = {};
+                data[$cat.attr('name')] = $cat.val();
+                console.log(data);
+                // on submit les data en ajax
+                $.ajax({
+                    url: $form.attr('action'),
+                    type: $form.attr('method'),
+                    data: data,
+                    complete: function(html) {
+                        $('#employee_cadreEmploi').replaceWith($(html.responseText).find('#employee_cadreEmploi'));
+                    }
+                });
+            })
+        };
+
+    </script>
+
+{% endblock %}

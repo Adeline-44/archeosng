@@ -1,0 +1,292 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container mx-auto pt-5">
+        <div class="row justify-content-center rounded-pill">
+            <div class="titre col-5 text-white">
+                <h1>Reprise d'activités</h1>
+            </div>
+            <div class="col-2 titre">
+                <div class="row py-0"><h5>Service carrières</h5></div>
+                <div class="row py-0"><h6>02.40.20.00.71</h6></div>
+            </div>
+            <div class="col-2 titre">
+                <img src={{ asset('img/Logo.png') }} width=50% alt="Logo CDG">
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-3 pt-3 control-panel">
+                <p><strong>{{ employee.lastName }} </strong>{{ employee.firstName }}</p>
+                <a href="{{ path('app_nouveau_calcul') }}">
+                    <button type="button" class="btn btn-outline-primary">Nouveau</button>
+                </a>
+            </div>
+
+            <div class="col-3 pt-3 control-panel">
+
+            </div>
+
+            <div class="col-3 pt-3 control-panel">
+                <a href="" target="_blank">
+                    <button type="button" class="btn btn-outline-secondary">Imprimer</button>
+                </a>
+                <a href="{{ path('help') }}" target="_blank">
+                    <button type="button" class="btn btn-outline-secondary">Aide</button>
+                </a>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-2  pt-3">
+                <h3><strong>{{ employee.lastName }} </strong>{{ employee.firstName }}</h3>
+            </div>
+            <div class="col-3  pt-3">
+
+            </div>
+            <div class="col-4 pt-3">
+                <h3>UID : <strong class="alert-info">{{ employee.UID }}</strong></h3>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-9 page-help pt-3 control-panel">
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+                {{ form_start(form) }}
+                <div class="my-custom-class-for-errors">
+                    {{ form_errors(form) }}
+                </div>
+            <div class="row mb-3">
+                <div class="col-6">{{ form_label(form.startDate) }}</div>
+                <div class="col-3">{{ form_widget(form.startDate) }}</div>
+            </div>
+                <div class="row mb-3">
+                    <div class="col-6">{{ form_label(form.endDate) }}</div>
+                    <div class="col-3">{{ form_widget(form.endDate) }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-6">{{ form_label(form.type) }}</div>
+                    <div class="col-3">{{ form_widget(form.type) }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-6"></div>
+                    <div class="col-3">{{ form_widget(form.cat) }}</div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-6"></div>
+                    <div class="col-6">{{ form_widget(form.prof) }}</div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-6">{{ form_rest(form) }}</div>
+                </div>
+
+
+            <!-- Affichage des périodes si elles existent -->
+            <div id="tabs">
+                <ul class="nav nav-tabs">
+                    <li class="nav-item"><a class="nav-link" href="#tabs-3">Total</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#tabs-1">Périodes Secteur Public</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#tabs-2">Périodes Secteur Privé</a></li>
+                </ul>
+
+                <div id="tabs-1">
+
+                    <table class="data">
+                        <tr>
+                            <td style="text-align:center;font-weight:bold;width:550px;background:#555;color:#fff;">nombre total de jours retenus pour le secteur public</td>
+                            <td style="text-align:center;font-weight:bold;background:#FF0084;color:#fff;"><span class="tab-tt-spc-j">${e.getTotalDaysSpc()}</span></td>
+                        </tr>
+                    </table>
+
+                    <table id="tab-period-spc" class="data">
+                        <thead>
+                        <tr>
+                            <th>Période</th>
+                            #{if e.categorie != models.Employee.CATEGORY_C}<th>Niveau</th>#{/if}
+                            <th>Nombre de jours</th>
+                            #{if e.categorie == models.Employee.CATEGORY_C}<th>Nombre d'heures</th>#{/if}
+                            #{if e.categorie == models.Employee.CATEGORY_C}<th>Nombre de jours retenus</th>#{/if}
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% if workingperiod.type == 1 %}
+                        #{if e.getWorkingPeriodForServicePublic().size() > 0} #{list
+                        items:e.getWorkingPeriodForServicePublic(), as: 'wp'}
+                        <tr>
+                            <td style="text-align: center;">
+                                {{ workingperiod.startDate }}
+                                &nbsp;-&nbsp;
+                                {{workingperiod.endDate }}
+                            </td>
+                            #{if e.categorie != models.Employee.CATEGORY_C}<td style="text-align: right;">${wp.cat}</td>#{/if}
+                            <td style="text-align: right;">${wp.effectiveDays}</td>
+                            #{if e.categorie == models.Employee.CATEGORY_C}<td style="text-align: right;">${wp.hours.format('0.00')}</td>#{/if}
+                            #{if e.categorie == models.Employee.CATEGORY_C}<td style="text-align: right;">${wp.computedDays.format('0.00')}</td>#{/if}
+                            <td style="text-align: center;"><button class="button btn-delete btn-del-period-sp" style="margin:0px" type="button" id="del-${wp.id}" value="X">X</button></td>
+                        </tr>
+                        #{/list} #{/if} #{else}{% endif %}
+                        <td class="nodata" colspan="7">aucune période de travail</td>
+                        #{/else}
+                        </tbody>
+                    </table>
+
+                    <table class="data">
+                        <tr>
+                            <td style="text-align:center;font-weight:bold;width:550px;background:#555;color:#fff;">nombre total de jours retenus pour le secteur public</td>
+                            <td style="text-align:center;font-weight:bold;background:#FF0084;color:#fff;"><span class="tab-tt-spc-j">${e.getTotalDaysSpc()}</span></td>
+                        </tr>
+                    </table>
+
+                </div>
+
+                <div id="tabs-2">
+
+                    <table class="data">
+                        <tr>
+                            <td style="text-align:center;font-weight:bold;width:550px;background:#555;color:#fff;">nombre total de jours retenus pour le secteur privé</td>
+                            <td style="text-align:center;font-weight:bold;background:#0073EA;color:#fff;"><span class="tab-tt-spv-j">${e.getTotalDaysSpv()}</span></td>
+                        </tr>
+                    </table>
+
+                    <table id="tab-period-spv" class="data">
+                        <thead>
+                        <tr>
+                            <th>Période</th>
+                            #{if e.categorie != models.Employee.CATEGORY_C}<th>Profession</th>#{/if}
+                            <th>Nombre de jours</th>
+                            #{if e.categorie == models.Employee.CATEGORY_C}<th>Nombre d'heures</th>#{/if}
+                            #{if e.categorie == models.Employee.CATEGORY_C}<th>Nombre de jours retenus</th>#{/if}
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        #{if e.getWorkingPeriodForServicePrive().size() > 0} #{list
+                        items:e.getWorkingPeriodForServicePrive(), as: 'wp'}
+                        <tr>
+                            <td style="text-align: center;">
+                                ${wp.startDate.format('dd MMMM yyyy', 'fr')}
+                                &nbsp;-&nbsp;
+                                ${wp.endDate.format('dd MMMM yyyy', 'fr')}
+                            </td>
+                            #{if e.categorie != models.Employee.CATEGORY_C}<td style="text-align: left;">${wp.getProf().code} – ${wp.getProf().intitule}</td>#{/if}
+                            <td style="text-align: right;">${wp.effectiveDays}</td>
+                            #{if e.categorie == models.Employee.CATEGORY_C}<td style="text-align: right;">${wp.hours.format('0.00')}</td>#{/if}
+                            #{if e.categorie == models.Employee.CATEGORY_C}<td style="text-align: right;">${wp.computedDays.format('0.00')}</td>#{/if}
+                            <td style="text-align: center;"><button class="button btn-delete btn-del-period-sp" style="margin:0px" type="button" id="del-${wp.id}" value="X">X</button></td>
+                        </tr>
+                        #{/list} #{/if} #{else}
+                        <td class="nodata" colspan="7">aucune période de travail</td>
+                        #{/else}
+                        </tbody>
+                    </table>
+                    <table class="data">
+                        <tr>
+                            <td style="text-align:center;font-weight:bold;width:550px;background:#555;color:#fff;">nombre total de jours retenus pour le secteur privé</td>
+                            <td style="text-align:center;font-weight:bold;background:#0073EA;color:#fff;"><span class="tab-tt-spv-j">${e.getTotalDaysSpv()}</span></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div id="tabs-3">
+
+                    <div id="total">
+                        <table id="tab-tt-spc" class="data">
+                            <tr>
+                                <td style="background:#eee;"></td>
+                                <td class="spch" style="text-align:center;"><b>PUBLIC</b></td>
+                                <td class="spvh" style="text-align:center;"><b>PRIVE</b></td>
+                            </tr>
+                            <tr>
+                                <td rowspan="2"><b>Total du nombre de jours retenus</b><br/>
+                                    <span style="font-size:8pt;color:#888">arrondi à  l'entier inférieur</span>
+                                </td>
+                                <td class="spch tab-tt-spc-j" style="color:#666">${e.getTotalDaysSpc()}</td>
+                                <td class="spvh tab-tt-spv-j" style="color:#666">${e.getTotalDaysSpv()}</td>
+                            </tr>
+
+                            <tr>
+                                <td class="spch" id="tab-tt-spc-amj"><b>${e.getFormattedTotalDaysSpc()}</b></td>
+                                <td class="spvh" id="tab-tt-spv-amj"><b>${e.getFormattedTotalDaysSpv()}</b></td>
+                            </tr>
+
+                        </table>
+                        <table class="data">
+                            <tr>
+                                <td rowspan="2"><b>Total du nombre de jours à  prendre en compte</b><br/>
+                                </td>
+                                <td class="spch" id="tab-tt-spc-rd" style="color:#666">${e.getRetainedTotalDaysSpc()}</td>
+                                <td class="spvh" id="tab-tt-spv-rd" style="color:#666">${e.getRetainedTotalDaysSpv()}</td>
+                            </tr>
+
+                            <tr>
+                                <td class="spch" id="tab-tt-spctamj"><b>${e.getFormattedRetainedTotalDaysSpc()}</b></td>
+                                <td class="spvh" id="tab-tt-spv-tamj"><b>${e.getFormattedRetainedTotalDaysSpv()}</b></td>
+                            </tr>
+                        </table>
+
+                        <table class="data">
+                            <tr>
+                                <td style="width:33%;"><b>Service militaire</b><br/>
+                                    <span style="font-size:8pt;color:#888">repris à 100% dans tous les cas</span></td>
+
+                                #{if e.militaire}
+                                <td style="width:66%;text-align:center;" id="ta"><b>${e.militaireMonths} mois ( soit ${e.getFormattedTotalMilitaireDays()} )</b></td>
+                                #{/if}
+                                #{else}
+                                <td style="width:66%;text-align:center;" id="ta"><b>pas de service militaire</b></td>
+                                #{/else}
+                            </tr>
+
+
+                        </table>
+
+                        <table class="data" style="margin:1em 0;background:#333;">
+                            <tr>
+                                <td rowspan="2"><b>Total</b></td>
+                                <td class="spch" id="total-spc"><b>${e.getFormattedTotalSpc()}</b></td>
+                                <td class="spvh" id="total-spv"><b>${e.getFormattedTotalSpv()}</b></td>
+                            </tr>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+    </div>
+        </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
+<script>
+    window.onload = () => {
+    var $type = $('#working_period_type');
+    //qd on sélectionne le type
+    $type.change(function() {
+        //on récupère le formulaire
+        var $form = $(this).closest('form');
+        //on génère des data vide où on va mettre le type sélectionné
+        var data = {};
+        data[$type.attr('name')] = $type.val();
+        console.log(data);
+        // on submit les data en ajax
+        $.ajax({
+            url: $form.attr('action'),
+            type: $form.attr('method'),
+            data: data,
+            complete: function(html) {
+                $('#working_period_cat').replaceWith($(html.responseText).find('#working_period_cat'));
+                $('#working_period_prof').replaceWith($(html.responseText).find('#working_period_prof'));
+            }
+        });
+    })
+    };
+
+</script>
+{% endblock %}

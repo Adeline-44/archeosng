@@ -50,6 +50,9 @@ h3 {
     border-bottom-width: 1px;
     border-bottom-color: grey;
 }
+.page-create {
+    background: #d0d5e4;
+}
 
 h4 {
     margin:30px 0 1em 0;
@@ -61,4 +64,80 @@ h4 {
 .control-panel {
     background: #eee;
     padding: 30px 50px;
+}
+
+.change-bhbsm {
+    background: #ddd;
+    padding: 1em;
+    border: 1px solid #ccc;
+    -moz-border-radius: 15px 15px 0 0;
+    border-radius: 15px 15px 0 0;
+    font-weight: bold;
+    width: 506px;
+}
+
+#add-period {
+    background: #ddd;
+}
+
+#total table td.spch.spch, option.spch {
+    background-color: #FFE2F6;
+}
+
+#total table td.spch, #total table td.spvh {
+    color: #333;
+    text-align: right;
+}
+#total table td {
+    width: 33%;
+}
+table.data td {
+    background: #fff;
+    background-color: rgb(255, 255, 255);
+    padding: 5px;
+}
+#total table {
+    width: 100%;
+}
+table.data {
+    background: #ddd;
+    width: 100%;
+}
+
+#total table td.spvh.spvh, option.spvh {
+    background-color: #A0C4E8;
+}
+
+.ui-button-icon-only .ui-icon {
+    left: 50%;
+    margin-left: -8px;
+}
+.ui-button-icon-only .ui-icon, .ui-button-text-icon-primary .ui-icon, .ui-button-text-icon-secondary .ui-icon, .ui-button-text-icons .ui-icon, .ui-button-icons-only .ui-icon {
+    position: absolute;
+    top: 50%;
+    margin-top: -8px;
+}
+.ui-button-delete {
+    background-image: url('img/ico_delete_16.png') !important;
+}
+.ui-icon {
+    width: 16px;
+    height: 16px;
+}
+.ui-icon {
+    display: block;
+    text-indent: -99999px;
+    overflow: hidden;
+    background-repeat: no-repeat;
+}
+.ui-button {
+    display: inline-block;
+    position: relative;
+    padding: 0;
+    line-height: normal;
+    margin-right: .1em;
+    cursor: pointer;
+    vertical-align: middle;
+    text-align: center;
+    overflow: visible;
 }

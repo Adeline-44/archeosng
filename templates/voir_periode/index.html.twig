@@ -1,0 +1,208 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <!-- Affichage des périodes si elles existent -->
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button class="nav-link active" id="nav-total-tab" data-bs-toggle="tab" data-bs-target="#nav-total" type="button" role="tab"
+                    aria-controls="nav-total" aria-selected="true">Total</button>
+            <button class="nav-link" id="nav-public-tab" data-bs-toggle="tab" data-bs-target="#nav-public" type="button" role="tab"
+                    aria-controls="nav-public" aria-selected="false">Périodes Secteur Public</button>
+            <button class="nav-link" id="nav-prive-tab" data-bs-toggle="tab" data-bs-target="#nav-prive" type="button" role="tab"
+                    aria-controls="nav-prive" aria-selected="false">Périodes Secteur Privé</button>
+        </div>
+    </nav>
+
+    <div class="tab-content container" id="nav-tabContent">
+        <!-- Onglet total -->
+        <div class="tab-pane fade show active" id="nav-total" role="tabpanel" aria-labelledby="nav-total-tab">
+            <div id="total">
+                <table id="tab-tt-spc" class="data">
+                    {% if wps %}
+                        {% set totalFP = 0 %}
+                        {% set totalPrive = 0 %}
+                        {% set totalJPCPublic = 0 %}
+                        {% set totalJPCPrive = 0 %}
+                        {% set jmaPub = '' %}
+                        {% set jmaPrive = '' %}
+                        {% set jpcPub = '' %}
+                        {% set jpcPrive = '' %}
+                        {% for wp in wps %}
+                            {% if wp.type == 1 %}
+                                {% set totalFP = totalFP+wp.getJR() %}
+                                {% set totalJPCPublic = totalJPCPublic+wp.getJPC() %}
+                                {% set jmaPub = wp.getJMA(totalFP) %}
+                                {% set jpcPub = wp.getJMA(totalJPCPublic) %}
+                            {% elseif wp.type == 2%}
+                                {% set totalPrive = totalPrive+wp.getJR() %}
+                                {% set totalJPCPrive = totalJPCPrive+wp.getJPC() %}
+                                {% set jmaPrive = wp.getJMA(totalPrive) %}
+                                {% set jpcPrive = wp.getJMA(totalJPCPrive) %}
+                            {% endif %}
+                        {% endfor %}
+
+                    {% endif %}
+                    <tr>
+                        <td style="background:#eee;"></td>
+                        <td class="spch" style="text-align:center;"><b>PUBLIC</b></td>
+                        <td class="spvh" style="text-align:center;"><b>PRIVE</b></td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2"><b>Total du nombre de jours retenus</b><br/>
+                            <span style="font-size:8pt;color:#888">arrondi à l'entier inférieur</span>
+                        </td>
+                        <td class="spch tab-tt-spc-j" style="color:#666">{{ totalFP }}</td>
+                        <td class="spvh tab-tt-spv-j" style="color:#666">{{ totalPrive }}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="spch" id="tab-tt-spc-amj"><b>{{ jmaPub }}</b></td>
+                        <td class="spvh" id="tab-tt-spv-amj"><b>{{ jmaPrive }}</b></td>
+                    </tr>
+
+                </table>
+                <table class="data">
+
+                    <tr>
+                        <td rowspan="2"><b>Total du nombre de jours à prendre en compte</b><br/>
+                        </td>
+                        <td class="spch" id="tab-tt-spc-rd" style="color:#666">{{ totalJPCPublic }}</td>
+                        <td class="spvh" id="tab-tt-spv-rd" style="color:#666">{{ totalJPCPrive }}</td>
+                    </tr>
+
+                    <tr>
+                        <td class="spch" id="tab-tt-spctamj"><b>{{ jpcPub }}</b></td>
+                        <td class="spvh" id="tab-tt-spv-tamj"><b>{{ jpcPrive }}</b></td>
+                    </tr>
+                </table>
+
+                <table class="data">
+                    <tr>
+                        <td style="width:33%;"><b>Service militaire</b><br/>
+                            <span style="font-size:8pt;color:#888">repris à 100% dans tous les cas</span></td>
+
+                        {% if employee.militaireMonths == 0 %}
+                        <td style="width:66%;text-align:center;" id="ta"><b>pas de service militaire</b></td>
+                        {% else %}
+                        <td style="width:66%;text-align:center;" id="ta"><b>{{ employee.militaireMonths }} mois ( soit {{ employee.getMilitaireMonths() }} )</b></td>
+                        {% endif %}
+
+                    </tr>
+
+
+                </table>
+
+                <table class="data" style="margin:1em 0;background:#333;">
+                    <tr>
+                        <td rowspan="2"><b>Total</b></td>
+                        <td class="spch" id="total-spc"><b>A faire</b></td>
+                        <td class="spvh" id="total-spv"><b>A faire</b></td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+
+        <!-- Onglet Public -->
+        <div class="tab-pane fade" id="nav-public" role="tabpanel" aria-labelledby="nav-public-tab">
+            <table id="tab-period-spc" class="data">
+                <thead>
+                <tr>
+                    <th>Période</th>
+                   <th>Niveau</th>
+                    <th>Nombre de jours retenus</th>
+                    <th>Nombre de jours pris en compte</th>
+                    <th>&nbsp;</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                {% if wps %}
+                {% set totalFP = 0 %}
+                {% for wp in wps %}
+                {% if wp.type == 1 %} {# Service Public #}
+                    <tr>
+                        <td style="text-align: center;">
+                            {{ (wp.startDate|date('d/m/Y')) }}
+                            &nbsp;-&nbsp;
+                            {{ (wp.endDate|date('d/m/Y')) }}
+                        </td>
+                        <td style="text-align: right;">{{ wp.cat }}</td>
+                        <td style="text-align: right;">{{ wp.getJR() }}</td>
+                        <td style="text-align: right;">{{ wp.getJPC() }}</td>
+                        <td style="text-align: center;">
+                            <a href="{{ path('supprimer_wp', {wp: wp.id}) }}">
+                            <button class="button btn-delete btn-del-period-sp" style="margin:0px" type="button" href value="X">
+                                <span class="ui-button-icon-primary ui-icon ui-button-delete"></span>
+                            </button>
+                            </a>
+                        </td>
+                    </tr>
+                    {% set totalFP = totalFP+wp.getJR() %}
+                  {% endif %}
+                {% endfor %}
+                {% else %}
+                <td class="nodata" colspan="7">aucune période de travail</td>
+                </tbody>
+            </table>
+            {% endif %}
+            <table class="data">
+                <tr>
+                    <td style="text-align:center;font-weight:bold;width:550px;background:#555;color:#fff;">nombre total de jours retenus pour le secteur public</td>
+                    <td style="text-align:center;font-weight:bold;background:#FF0084;color:#fff;"><span class="tab-tt-spc-j">{{ totalFP }}</span></td>
+                </tr>
+            </table>
+
+        </div>
+
+        {% if wps %}
+        {% set totalPrive = 0 %}
+        {% for wp in wps %}
+        {% if wp.type == 2 %} {# Secteur privé #}
+        <div class="tab-pane fade" id="nav-prive" role="tabpanel" aria-labelledby="nav-prive-tab">
+
+
+            <table id="tab-period-spv" class="data">
+                <thead>
+                <tr>
+                    <th>Période</th>
+                    <th>Profession</th>
+                   <th>Nombre de jours retenus</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr>
+                    <td style="text-align: center;">
+                        {{ (wp.startDate|date('d/m/Y')) }}
+                        &nbsp;-&nbsp;
+                        {{ (wp.endDate|date('d/m/Y')) }}
+                    </td>
+                    <td style="text-align: left;">{{ wp.getprof() }}</td>
+                    <td style="text-align: right;">{{ wp.getJR() }}</td>
+                    <td style="text-align: center;"><button class="button btn-delete btn-del-period-sp" style="margin:0px" type="button" id="del-${wp.id}" value="X">X</button></td>
+                </tr>
+                {% set totalPrive = totalPrive+wp.getJR() %}
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                <td class="nodata" colspan="7">aucune période de travail</td>
+                {% endif %}
+                </tbody>
+            </table>
+            <table class="data">
+                <tr>
+                    <td style="text-align:center;font-weight:bold;width:550px;background:#555;color:#fff;">nombre total de jours retenus pour le secteur privé</td>
+                    <td style="text-align:center;font-weight:bold;background:#0073EA;color:#fff;"><span class="tab-tt-spv-j"</span>{{ totalPrive }}</td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+{% endblock %}
