@@ -47,40 +47,49 @@
             </div>
         </div>
         <div class="row justify-content-center">
+            <div class="row change-bhbsm col-9 pt-3">
+                {{ form_start(form2) }}
+                {{ form_label(form2.weekBase) }} {{ form_widget(form2.weekBase) }} heures / semaine
+                <br />
+                {{ form_end(form2) }}
+            </div>
+
+        </div>
+        <div class="row justify-content-center">
+
             <div class="col-9 page-help pt-3 control-panel">
                 {% for message in app.flashes('success') %}
                     <div class="alert alert-success">
                         {{ message }}
                     </div>
                 {% endfor %}
+
                 {{ form_start(form) }}
                 <div class="my-custom-class-for-errors">
                     {{ form_errors(form) }}
                 </div>
-            <div class="row mb-3">
-                <div class="col-6">{{ form_label(form.startDate) }}</div>
-                <div class="col-3">{{ form_widget(form.startDate) }}</div>
-            </div>
-                <div class="row mb-3">
-                    <div class="col-6">{{ form_label(form.endDate) }}</div>
-                    <div class="col-3">{{ form_widget(form.endDate) }}</div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-6">{{ form_label(form.type) }}</div>
-                    <div class="col-3">{{ form_widget(form.type) }}</div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-6"></div>
-                    <div class="col-3">{{ form_widget(form.cat) }}</div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-6"></div>
-                    <div class="col-6">{{ form_widget(form.prof) }}</div>
-                </div>
 
-                <div class="row mb-3">
-                    <div class="col-6">{{ form_rest(form) }}</div>
-                </div>
+
+                    <div class="row mb-3">
+                        <div class="col-6">{{ form_label(form.startDate) }}</div>
+                        <div class="col-3">{{ form_widget(form.startDate) }}</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6">{{ form_label(form.endDate) }}</div>
+                        <div class="col-3">{{ form_widget(form.endDate) }}</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6">{{ form_label(form.hours) }}</div>
+                        <div class="col-3">{{ form_widget(form.hours) }}</div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-6">{{ form_label(form.type) }}</div>
+                        <div class="col-3">{{ form_widget(form.type) }}</div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-6">{{ form_rest(form) }}</div>
+                    </div>
 
 
             <!-- Affichage des périodes si elles existent -->
@@ -300,29 +309,55 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
             crossorigin="anonymous"></script>
-<script>
-    window.onload = () => {
-    var $type = $('#working_period_type');
-    //qd on sélectionne le type
-    $type.change(function() {
-        //on récupère le formulaire
-        var $form = $(this).closest('form');
-        //on génère des data vide où on va mettre le type sélectionné
-        var data = {};
-        data[$type.attr('name')] = $type.val();
-        console.log(data);
-        // on submit les data en ajax
-        $.ajax({
-            url: $form.attr('action'),
-            type: $form.attr('method'),
-            data: data,
-            complete: function(html) {
-                $('#working_period_cat').replaceWith($(html.responseText).find('#working_period_cat'));
-                $('#working_period_prof').replaceWith($(html.responseText).find('#working_period_prof'));
-            }
+    <script src="https://cdn.ckeditor.com/ckeditor5/36.0.1/classic/ckeditor.js"></script>
+
+    <script TYPE="text/javascript">
+        $(function() {
+            $("#employee_type_c_weekBase").keyup(function() {
+                let weekbase = document.querySelector("#employee_type_c_weekBase").value;
+                console.log("WeekBase " + weekbase);
+
+                let calcul = weekbase *52/12;
+                console.log("Calcul : "+calcul);
+                $("#employee_type_c_monthBase").val(calcul);
+            })
         });
-    })
+    </script>
+
+<!--
+    <script>
+    window.onload = () => {
+    //on va chercher le week base
+        let weekbase = document.querySelector("#employee_type_c_weekBase");
+
+        weekbase.addEventListener("change", function() {
+           let form = this.closest("form");
+           let data = this.value;
+           console.log("data : " + data);
+            fetch(form.action, {
+                name: form.getAttribute("name"),
+                method: form.getAttribute("method"),
+                body: data,
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded; charset: UTF-8"
+                }
+            })
+            .then(response => response.text())
+            .then(html => {
+                let content = document.createElement("html");
+                content.innerHTML = html;
+
+                let calcul = (data *52/12);
+                console.log("CALCUL" + calcul);
+                document.querySelector("#employee_type_c_monthBase").replaceWith(calcul);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        });
+
+
     };
 
-</script>
+</script>-->
 {% endblock %}

@@ -59,57 +59,57 @@ class WorkingPeriodType extends AbstractType
             ])
             ->add('cat', HiddenType::class, [
                 'attr' => ['class' =>'form-control'
-                    ]
+                ]
             ])
             ->add('prof', HiddenType::class, [
                 'attr' => ['class' =>'form-control'
                 ]
             ]);
 
-            $formModifier = function (FormInterface $form, $type = null) {
-                if($type == 1) {
-                    $form->add('cat', ChoiceType::class, [
-                        'choices' => [
-                            'Catégorie A' => 'A',
-                            'Catégorie B' => 'B',
-                            'Catégorie C' => 'C'
-                        ],
-                        'label' => 'Niveau du poste occupé durant cette période',
-                        'attr' => ['class' =>'form-control']
-                    ]);
-                }
-                else if ($type == 2){
-                    $form->add('prof', EntityType::class, [
-                        'class' => Profession::class,
-                        'choice_label' => 'intitule'
+        $formModifier = function (FormInterface $form, $type = null) {
+            if($type == 1) {
+                $form->add('cat', ChoiceType::class, [
+                    'choices' => [
+                        'Catégorie A' => 'A',
+                        'Catégorie B' => 'B',
+                        'Catégorie C' => 'C'
+                    ],
+                    'label' => 'Niveau du poste occupé durant cette période',
+                    'attr' => ['class' =>'form-control']
+                ]);
+            }
+            else if ($type == 2){
+                $form->add('prof', EntityType::class, [
+                    'class' => Profession::class,
+                    'choice_label' => 'intitule'
 
-                    ]);
-                }
-            };
+                ]);
+            }
+        };
 
-            // On place l'eventListener sur le type
-            $builder->addEventListener(FormEvents::PRE_SET_DATA,
-                function (FormEvent $event) use($formModifier) {
-               // dump($event->getData());
+        // On place l'eventListener sur le type
+        $builder->addEventListener(FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) use($formModifier) {
+                // dump($event->getData());
                 $type = $event->getData()->getType();
                 $formModifier($event->getForm(), $type);
 
-              });
-            //on ajoute le post submit pour que la valeur sélectionnée soit prise en compte à la validation du form
-            $builder->get('type')->addEventListener(
-                FormEvents::POST_SUBMIT,
-                function(FormEvent $event) use ($formModifier) {
-                    $type = $event->getForm()->getData();
-                    $formModifier($event->getForm()->getParent(), $type);
-                }
-            );
+            });
+        //on ajoute le post submit pour que la valeur sélectionnée soit prise en compte à la validation du form
+        $builder->get('type')->addEventListener(
+            FormEvents::POST_SUBMIT,
+            function(FormEvent $event) use ($formModifier) {
+                $type = $event->getForm()->getData();
+                $formModifier($event->getForm()->getParent(), $type);
+            }
+        );
 
-            $builder->add('submit', SubmitType::class,
-                [
-                    'label' =>'Ajouter la période',
-                    'attr' => ['class' => 'btn btn-primary']
-                ]);
-         }
+        $builder->add('submit', SubmitType::class,
+            [
+                'label' =>'Ajouter la période',
+                'attr' => ['class' => 'btn btn-primary']
+            ]);
+    }
 
 
     public function configureOptions(OptionsResolver $resolver): void

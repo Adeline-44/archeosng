@@ -267,6 +267,8 @@ class WorkingPeriod
         $anneesRetenues = $this->getAR();
         // on récupère la catégorie de la workingPeriod à enregistrer
         $cat = $this->getCat();
+        //Pour catégorie C on a le champs type qui vaut 1 public ou 2 privé
+        $type = $this->getType();
         //on récupère la catégorie de l'employé
         $categorie = $this->getEmployeeId()->getCategorie();
 
@@ -338,23 +340,32 @@ class WorkingPeriod
                 }
             break;
             case "3": // Catégorie C
-                switch ($cat) {
+                // pn récupère le nombre d'heure saisie
+                $heures = $this->getHours();
+                // on récupére monthbase et weekbase
+                $month = $this->getEmployeeId()->getMonthBase();
+                $week = $this->getEmployeeId()->getWeekBase();
+                $etpjour = $week * 52/360;
+                //$comparaison = $joursRetenus * $etpjour;
+                $test = $heures/$joursRetenus;
+                if($test > $etpjour) {
+                    $etp = $heures*52/12;
+                    $jtemp = $joursRetenus * $heures/$heures;
+                }
+                else {
+                    $jtemp = $heures*$joursRetenus/$month;
+                }
+                switch ($type) {
                     case 1:
-                        $jpc = 0;
+                        $jpc = 3/4 * $jtemp;
                         break;
                     case 2:
-                        $jpc = 10;
+                        $jpc = 0.5*$jtemp;
                         break;
-                    case 3:
-                        $jpc = 100;
-                        break;
+
                 }
             break;
         }
-
-      // Catégorie C, reprise A, B,C
-
-        // Catégorie C, reprise privé
 
         return $jpc;
     }

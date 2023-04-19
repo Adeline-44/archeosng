@@ -18,15 +18,15 @@
         <div class="tab-pane fade show active" id="nav-total" role="tabpanel" aria-labelledby="nav-total-tab">
             <div id="total">
                 <table id="tab-tt-spc" class="data">
+                    {% set totalFP = 0 %}
+                    {% set totalPrive = 0 %}
+                    {% set totalJPCPublic = 0 %}
+                    {% set totalJPCPrive = 0 %}
+                    {% set jmaPub = '' %}
+                    {% set jmaPrive = '' %}
+                    {% set jpcPub = '' %}
+                    {% set jpcPrive = '' %}
                     {% if wps %}
-                        {% set totalFP = 0 %}
-                        {% set totalPrive = 0 %}
-                        {% set totalJPCPublic = 0 %}
-                        {% set totalJPCPrive = 0 %}
-                        {% set jmaPub = '' %}
-                        {% set jmaPrive = '' %}
-                        {% set jpcPub = '' %}
-                        {% set jpcPrive = '' %}
                         {% for wp in wps %}
                             {% if wp.type == 1 %}
                                 {% set totalFP = totalFP+wp.getJR() %}
@@ -181,7 +181,13 @@
                     </td>
                     <td style="text-align: left;">{{ wp.getprof() }}</td>
                     <td style="text-align: right;">{{ wp.getJR() }}</td>
-                    <td style="text-align: center;"><button class="button btn-delete btn-del-period-sp" style="margin:0px" type="button" id="del-${wp.id}" value="X">X</button></td>
+                    <td style="text-align: center;">
+                        <a href="{{ path('supprimer_wp', {wp: wp.id}) }}">
+                            <button class="button btn-delete btn-del-period-sp" style="margin:0px" type="button" href value="X">
+                                <span class="ui-button-icon-primary ui-icon ui-button-delete"></span>
+                            </button>
+                        </a>
+                    </td>
                 </tr>
                 {% set totalPrive = totalPrive+wp.getJR() %}
                 {% endif %}
