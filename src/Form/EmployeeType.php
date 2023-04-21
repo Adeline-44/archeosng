@@ -84,7 +84,7 @@ class EmployeeType extends AbstractType
             ])
 
             ->add('militaire', ChoiceType::class, [
-                'label' =>'Service militaire',
+                'label' =>'Service militaire (et, le cas échéant, et uniquement pour les catégories B et C, le service civique ou volontariat international)',
                 'required' => true,
                 'choices'=>[
                     '- Choisir -' =>'0',
@@ -93,7 +93,7 @@ class EmployeeType extends AbstractType
                 ],
                 'attr' => ['class' => 'form-control']
             ])
-            ->add('militaireMonths', HiddenType::class, [
+            ->add('militaireDays', HiddenType::class, [
                 'attr' => ['class' =>'form-control'
                 ],
                 'label' =>''
@@ -116,8 +116,8 @@ class EmployeeType extends AbstractType
         //Le formmodifier c'est l'action qui sera exécutée en fonction de l'eventlistener en dessous
         $formModifier = function (FormInterface $form, $militaire = null) {
             if($militaire == 1) {
-                $form->add('militaireMonths', TextType::class, [
-                    'label' => 'Nombre de mois',
+                $form->add('militaireDays', TextType::class, [
+                    'label' => 'Nombre de jour',
                     'attr' => ['class' =>'form-control']
                 ]);
             }

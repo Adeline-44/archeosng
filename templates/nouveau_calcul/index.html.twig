@@ -24,13 +24,21 @@
 
             </div>
             <div class="col-2 pt-3 control-panel">
-                <a href="{{ path('help') }}" target="_blank">
+
+                <a href="{{ path('help') }}" target="_blank" class="btn btn-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-question" viewBox="0 0 16 16">
+                        <path d="M8.05 9.6c.336 0 .504-.24.554-.627.04-.534.198-.815.847-1.26.673-.475 1.049-1.09 1.049-1.986 0-1.325-.92-2.227-2.262-2.227-1.02 0-1.792.492-2.1 1.29A1.71 1.71 0 0 0 6 5.48c0 .393.203.64.545.64.272 0 .455-.147.564-.51.158-.592.525-.915 1.074-.915.61 0 1.03.446 1.03 1.084 0 .563-.208.885-.822 1.325-.619.433-.926.914-.926 1.64v.111c0 .428.208.745.585.745z"/>
+                        <path d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911l-1.318.016z"/>
+                        <path d="M7.001 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0z"/>
+                    </svg> Aide
+                    <!--
                     <button type="button" class="btn btn-outline-secondary">Aide</button>
+                    -->
                 </a>
             </div>
         </div>
         <div class="row justify-content-center">
-            <div class="col-9 page-help pt-3">
+            <div class="col-9 page-help pt-3 px-5">
                 <div class="control-panel">
                     Cet outil permet de calculer la reprise d'ancienneté pour les personnes nommées fonctionnaire dans un grade de catégorie A, B ou C.<br />
                     <ul>
@@ -47,72 +55,120 @@
                     </ul>
                     <br>
                     Cet outil permet également de prendre en compte dans le calcul la durée effective du service national et la durée effective du service civique ou du volontariat international.
-                  </div>
+                </div>
                 <br />
                 {% for message in app.flashes('success') %}
                 <div class="alert alert-success">
                     {{ message }}
                 </div>
                 {% endfor %}
-                <h2>Nouveau Calcul</h2>
+                <h2 class="pb-2">Nouveau Calcul</h2>
                 {{ form_start(form) }}
                 <div class="my-custom-class-for-errors">
                     {{ form_errors(form) }}
                 </div>
-                <div class="row page-create">
-                    <div class="col-8">
-                        <b>{{ form_label(form.poste) }}</b> {{ form_widget(form.poste) }}
+                <!--Poste -->
+                <div class="row page-create pt-3">
+                    <div class="col-2">
+                        <p class="fw-bold fs-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-asterisk alert-danger" viewBox="0 0 16 16">
+                                <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
+                            </svg> {{ form_label(form.poste) }}</p>
                     </div>
-                    <div class="col-4">
-                        {{ form_row(form.categorie) }}
+                    <div class="col-8">{{ form_widget(form.poste) }}</div>
+                </div>
+                <!-- Catégorie -->
+                <div class="row page-create pt-1">
+                    <div class="col-3">
+                        <p class="fw-bold fs-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-asterisk alert-danger" viewBox="0 0 16 16">
+                                <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
+                            </svg> {{ form_label(form.categorie) }}</p>
+                    </div>
+                    <div class="col-6">
+                        {{ form_widget(form.categorie) }}
                     </div>
                 </div>
-                <div class="row page-create">
+                <!-- Cadre emploi -->
+                <div class="row page-create pt-1">
+                    <div class="col-3">&nbsp;</div>
                     <div class="col-8">
                         {{ form_row(form.cadreEmploi) }}
                     </div>
                 </div>
-                <div class="row page-create">
-                    <div class="col-2">
-                        {{ form_row(form.militaire) }}
+
+                <!-- Service militaire -->
+                <div class="row page-create pt-1">
+                    <div class="col-12">
+                        <p class="fs-6">{{ form_label(form.militaire) }} {{ form_widget(form.militaire) }}</p>
+
                     </div>
                     <div class="col-2">
-                        {{ form_label(form.militaireMonths) }}
-                        {{ form_widget(form.militaireMonths) }}
+                        {{ form_row(form.militaireDays) }}
+                    </div>
+                </div>
+                <div class="row page-create pt-1">
+                    <div class="col-3">
+                        {{ form_label(form.genre) }}
+                    </div>
+                    <div class="col-8">{{ form_widget(form.genre) }}</div>
+                </div>
+                <div class="row page-create">
+                    <div class="col-3">
+                        {{ form_label(form.lastName) }}
+                    </div>
+                    <div class="col-8">
+                        {{ form_widget(form.lastName) }}
                     </div>
                 </div>
                 <div class="row page-create">
                     <div class="col-3">
-                        {{ form_row(form.genre) }}
+                        {{ form_label(form.firstName) }}
                     </div>
-                    <div class="col-5">
-                        {{ form_row(form.lastName) }}
-                    </div>
-                    <div class="col-4">
-                        {{ form_row(form.firstName) }}
-                    </div>
-                </div>
-                <div class="row page-create">
                     <div class="col-8">
-                        {{ form_row(form.adr1) }}
-                    </div>
-                    <div class="col-4">
-                        {{ form_row(form.adr2) }}
+                        {{ form_widget(form.firstName) }}
                     </div>
                 </div>
                 <div class="row page-create">
-                    <div class="col-2">
-                        {{ form_row(form.cp) }}
+                    <div class="col-3">
+                        {{ form_label(form.adr1) }}
                     </div>
-                    <div class="col-4">
-                        {{ form_row(form.city) }}
+                    <div class="col-8">
+                        {{ form_widget(form.adr1) }}
                     </div>
-                    {{ form_end(form) }}
+                </div>
+                <div class="row page-create">
+                    <div class="col-3">
+                        {{ form_label(form.adr2) }}
+                    </div>
+                    <div class="col-8">
+                        {{ form_widget(form.adr2) }}
+                    </div>
+                </div>
+                <div class="row page-create">
+                    <div class="col-3">
+                        {{ form_label(form.cp) }}
+                    </div>
+                    <div class="col-8">
+                        {{ form_widget(form.cp) }}
+                    </div>
+                </div>
+                <div class="row page-create">
+                    <div class="col-3">
+                        {{ form_label(form.city) }}
+                    </div>
+                    <div class="col-8">
+                        {{ form_widget(form.city) }}
+                    </div>
+                </div>
+                <div class="row page-create pt-3">
+                    <div class="col-5">&nbsp;</div>
+                    <div class="col-2">{{ form_end(form) }}</div>
+                    <div class="col-5">&nbsp;</div>
+
                 </div>
 
-
-
-                <h2>Poursuivre le calcul précédent</h2>
+                <h2 class="pt-3">Poursuivre le calcul précédent</h2>
                 {{ form_start(formulaire) }}
                 <div class="my-custom-class-for-errors">
                     {{ form_errors(formulaire) }}
@@ -151,7 +207,7 @@
                     type: $form.attr('method'),
                     data: data,
                     complete: function(html) {
-                        $('#employee_militaireMonths').replaceWith($(html.responseText).find('#employee_militaireMonths'));
+                        $('#employee_militaireDays').replaceWith($(html.responseText).find('#employee_militaireDays'));
                     }
                 });
             })

@@ -64,6 +64,7 @@ h4 {
 .control-panel {
     background: #eee;
     padding: 30px 50px;
+    font-size: 10pt;
 }
 
 .change-bhbsm {
@@ -150,4 +151,10 @@ table.data {
     border-radius: 15px 15px 0 0;
     font-weight: bold;
     width: 506px;
+}
+
+.uid {
+    color: #7A4A4A;
+    font-size: 1.5rem;
+    font-weight: bold;
 }

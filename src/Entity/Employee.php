@@ -54,7 +54,7 @@ class Employee
     private $militaire;
 
     #[ORM\Column(type: 'integer')]
-    private $militaireMonths;
+    private $militaireDays;
 
     #[ORM\Column(type: 'float', options: ['default' =>151.67])]
     private $monthBase;
@@ -215,14 +215,14 @@ class Employee
         return $this;
     }
 
-    public function getMilitaireMonths(): ?int
+    public function getmilitaireDays(): ?int
     {
-        return $this->militaireMonths;
+        return $this->militaireDays;
     }
 
-    public function setMilitaireMonths(int $militaireMonths): self
+    public function setmilitaireDays(int $militaireDays): self
     {
-        $this->militaireMonths = $militaireMonths;
+        $this->militaireDays = $militaireDays;
 
         return $this;
     }

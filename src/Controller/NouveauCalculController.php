@@ -40,7 +40,7 @@ class NouveauCalculController extends AbstractController
             if($employee->getCategorie()==3 OR $employee->getCategorie()==2) { $employee->setCadreEmploi('0'); }
 
             //si militaire = 0, on set, le militaire month à 0
-            if($employee->isMilitaire()==false) {$employee->setMilitaireMonths('0');}
+            if($employee->isMilitaire()==false) {$employee->setmilitaireDays('0');}
             //dd($form->getData());
 
             $entityManager->persist($employee);

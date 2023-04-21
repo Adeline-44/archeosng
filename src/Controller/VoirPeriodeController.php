@@ -38,7 +38,7 @@ class VoirPeriodeController extends AbstractController
        $em->flush();
 
        $this->addFlash('message', "Période supprimée avec succès");
-       return $this->redirectToRoute('app_voir_periode', ['id' => $wp->getEmployeeId()->getId()]);
+       return $this->redirectToRoute('app_calcul_anciennete', ['id' => $wp->getEmployeeId()->getId()]);
 
     }
 
