@@ -58,8 +58,6 @@ class EmployeeType extends AbstractType
             }
         };
 
-
-
         // On place l'eventListener sur le cadreEmploi
         $builder->addEventListener(FormEvents::PRE_SET_DATA,
             function (FormEvent $event) use($formModifierOne) {
@@ -102,12 +100,11 @@ class EmployeeType extends AbstractType
             ->add('genre', ChoiceType::class, [
                 'choices' => [
                     'Madame' => '2',
-                    'Mademoiselle' => '1',
                     'Monsieur' => '3'
                 ]
             ])
-            ->add('lastName', TextType::class, [ 'label' => 'Nom'])
-            ->add('firstName', TextType::class, [ 'label' => 'Prénom'])
+            ->add('lastName', TextType::class, [ 'label' => 'Nom', 'required' => false, 'attr' => ['class' => 'text-uppercase']])
+            ->add('firstName', TextType::class, [ 'label' => 'Prénom', 'required' => false, 'attr' => ['class' => 'text-capitalize']])
             ->add('adr1', TextType::class, ['label' => 'Adresse', 'required' => false])
             ->add('adr2', TextType::class, ['label' => 'Complément d\'adresse', 'required' => false])
             ->add('cp', TextType::class, ['label' => 'Code Postal', 'required' => false])
@@ -118,7 +115,7 @@ class EmployeeType extends AbstractType
             if($militaire == 1) {
                 $form->add('militaireDays', TextType::class, [
                     'label' => 'Nombre de jour',
-                    'attr' => ['class' =>'form-control']
+                    'attr' => ['class' =>'form-control', 'placeholder' => 'Nb jours']
                 ]);
             }
         };

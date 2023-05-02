@@ -40,14 +40,15 @@
         <div class="row justify-content-center">
             <div class="col-9 page-help pt-3 px-5">
                 <div class="control-panel">
+                    <p style="text-align: justify;">
                     Cet outil permet de calculer la reprise d'ancienneté pour les personnes nommées fonctionnaire dans un grade de catégorie A, B ou C.<br />
-                    <ul>
+                    <ul style="text-align: justify;">
                         <li><b>Pour la catégorie C :</b> l’outil ne peut pas être utilisé pour un classement sur un grade C2.
                             Voir <a href="https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000032526775&fastPos=1&fastReqId=1271601943&categorieLien=cid&oldAction=rechTexte" target="_blank">décret n°2016-596 </a>
                             <a href="https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000032526775&fastPos=1&fastReqId=1271601943&categorieLien=cid&oldAction=rechTexte#LEGIARTI000032540906" target="_blank">art 5-II</a> et
                             <a href="https://www.legifrance.gouv.fr/affichTexte.do?cidTexte=JORFTEXT000032526775&fastPos=1&fastReqId=1271601943&categorieLien=cid&oldAction=rechTexte#LEGIARTI000032540908" target="_blank">art 6-II </a>pour les modalités de classement.
                         </li>
-                        <li><b>Pour la catégorie B :</b>l’outil ne peut être utilisé que pour l’accès au 1er grade d’un cadre d’emplois de catégorie B autre que ceux du Nouvel Espace Statutaire (cadres d’emplois du NES = animateurs, assistants d’enseignement artistique, assistants de conservation du patrimoine et des bibliothèques, chefs de service de police municipale, éducateurs des activités physiques et sportives, rédacteurs, techniciens et lieutenant de sapeurs-pompiers professionnels). Pour l’accès au 2ème grade d’un cadre d’emplois du NES, il faut ensuite appliquer l’article 21 du décret n° 2010-329
+                        <li><b>Pour la catégorie B : </b>l’outil ne peut être utilisé que pour l’accès au 1er grade d’un cadre d’emplois de catégorie B autre que ceux du Nouvel Espace Statutaire (cadres d’emplois du NES = animateurs, assistants d’enseignement artistique, assistants de conservation du patrimoine et des bibliothèques, chefs de service de police municipale, éducateurs des activités physiques et sportives, rédacteurs, techniciens et lieutenant de sapeurs-pompiers professionnels). Pour l’accès au 2ème grade d’un cadre d’emplois du NES, il faut ensuite appliquer l’article 21 du décret n° 2010-329
                         </li>
                         <li><b>Pour la catégorie A : </b>
                             l’outil ne peut pas être utilisé pour d’autres cadres d’emplois que les suivants : <i>attachés, ingénieurs, conservateurs du patrimoine, conservateurs des bibliothèques, attachés de conservation du patrimoine, bibliothécaires, directeurs d’établissements d’enseignement artistique, professeurs d’enseignement artistique, conseillers des activités physiques et sportives, psychologues, directeurs de police municipale, conception et direction des sapeurs-pompiers professionnels et capitaines, commandants et lieutenants-colonels de sapeurs-pompiers professionnels.</i>
@@ -55,8 +56,9 @@
                     </ul>
                     <br>
                     Cet outil permet également de prendre en compte dans le calcul la durée effective du service national et la durée effective du service civique ou du volontariat international.
+                    </p>
                 </div>
-                <br />
+
                 {% for message in app.flashes('success') %}
                 <div class="alert alert-success">
                     {{ message }}
@@ -70,7 +72,7 @@
                 <!--Poste -->
                 <div class="row page-create pt-3">
                     <div class="col-2">
-                        <p class="fw-bold fs-3">
+                        <p class="fw-bold fs-4">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-asterisk alert-danger" viewBox="0 0 16 16">
                                 <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
                             </svg> {{ form_label(form.poste) }}</p>
@@ -80,7 +82,7 @@
                 <!-- Catégorie -->
                 <div class="row page-create pt-1">
                     <div class="col-3">
-                        <p class="fw-bold fs-3">
+                        <p class="fw-bold fs-4">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-asterisk alert-danger" viewBox="0 0 16 16">
                                 <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1z"/>
                             </svg> {{ form_label(form.categorie) }}</p>
@@ -100,64 +102,68 @@
                 <!-- Service militaire -->
                 <div class="row page-create pt-1">
                     <div class="col-12">
-                        <p class="fs-6">{{ form_label(form.militaire) }} {{ form_widget(form.militaire) }}</p>
-
-                    </div>
-                    <div class="col-2">
-                        {{ form_row(form.militaireDays) }}
+                        {{ form_label(form.militaire) }}
                     </div>
                 </div>
+                <div class="row page-create">
+                    <div class="col-3">&nbsp;</div>
+                        <div class="col-2">{{ form_widget(form.militaire) }}</div>
+                        <div class="col-2">
+                            {{ form_row(form.militaireDays) }}
+                        </div>
+                    </div>
+
                 <div class="row page-create pt-1">
                     <div class="col-3">
                         {{ form_label(form.genre) }}
                     </div>
-                    <div class="col-8">{{ form_widget(form.genre) }}</div>
+                    <div class="col-2">{{ form_widget(form.genre) }}</div>
                 </div>
-                <div class="row page-create">
+                <div class="row page-create pt-1">
                     <div class="col-3">
                         {{ form_label(form.lastName) }}
                     </div>
-                    <div class="col-8">
+                    <div class="col-4">
                         {{ form_widget(form.lastName) }}
                     </div>
                 </div>
-                <div class="row page-create">
+                <div class="row page-create pt-1">
                     <div class="col-3">
                         {{ form_label(form.firstName) }}
                     </div>
-                    <div class="col-8">
+                    <div class="col-4">
                         {{ form_widget(form.firstName) }}
                     </div>
                 </div>
-                <div class="row page-create">
+                <div class="row page-create pt-1">
                     <div class="col-3">
                         {{ form_label(form.adr1) }}
                     </div>
-                    <div class="col-8">
+                    <div class="col-6">
                         {{ form_widget(form.adr1) }}
                     </div>
                 </div>
-                <div class="row page-create">
+                <div class="row page-create pt-1">
                     <div class="col-3">
                         {{ form_label(form.adr2) }}
                     </div>
-                    <div class="col-8">
+                    <div class="col-6">
                         {{ form_widget(form.adr2) }}
                     </div>
                 </div>
-                <div class="row page-create">
+                <div class="row page-create pt-1">
                     <div class="col-3">
                         {{ form_label(form.cp) }}
                     </div>
-                    <div class="col-8">
+                    <div class="col-2">
                         {{ form_widget(form.cp) }}
                     </div>
                 </div>
-                <div class="row page-create">
+                <div class="row page-create pt-1">
                     <div class="col-3">
                         {{ form_label(form.city) }}
                     </div>
-                    <div class="col-8">
+                    <div class="col-4">
                         {{ form_widget(form.city) }}
                     </div>
                 </div>
@@ -186,6 +192,7 @@
 {% endblock %}
 
 {% block javascripts %}
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
             crossorigin="anonymous"></script>

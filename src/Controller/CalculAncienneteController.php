@@ -23,11 +23,11 @@ use Symfony\Component\Routing\Annotation\Route;
 class CalculAncienneteController extends AbstractController
 {
     public \DateTime $startDate;
-	public \DateTime $endDate;
-	public float $hours;
-	public int $type;
-	public string $cat;
-	public String $prof;
+    public \DateTime $endDate;
+    public float $hours;
+    public int $type;
+    public string $cat;
+    public String $prof;
 
     public Employee $employee;
 
@@ -85,46 +85,55 @@ class CalculAncienneteController extends AbstractController
             $form2->handleRequest($request);
             $form->handleRequest($request);
 
+            if($form2->isSubmitted() && $form2->isValid()) {
+                $employeeC = $form2->getData();
+                $test = $employee->getWeekBase();
+                $month = round($test *52/12,2);
+                $employee->setMonthBase($month);
+                //dd($employee);
+                $entityManager->persist($employee);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('app_calcul_anciennete', ['id' => $employee->getId()]);
+            }
+            elseif
                 //Second formulaire validé
-                if ($form->isSubmitted() && $form->isValid()) {
-                    $form2->getData();
-                    $entityManager->persist($employee);
-                    $entityManager->flush();
+            ($form->isSubmitted() && $form->isValid()) {
+                //$form2->getData();
+                $workingPeriod->setEmployeeId($employee);
+                $startDate = $workingPeriod->getStartDate();
+                $endDate = $workingPeriod->getEndDate();
+                $test = $workingPeriod->getJPC();
+                // $workingPeriod->setProf($form->get('prof')->getData());
+                //$workingPeriod->setHours($test);
+                $workingPeriod->getCat();
 
-
-                    $workingPeriod->setEmployeeId($employee);
-                    $startDate = $workingPeriod->getStartDate();
-                    $endDate = $workingPeriod->getEndDate();
-                    $test = $workingPeriod->getJPC();
-                    // $workingPeriod->setProf($form->get('prof')->getData());
-                    //$workingPeriod->setHours($test);
-                    $workingPeriod->getCat();
-
-                    //Si on reprend une période du privé, le type =2 on fixe la catégorie à P
-                    if ($workingPeriod->getType() == 2) {
-                        $workingPeriod->setCat('P');
-                    }
-                    else {
-                        $workingPeriod->setCat('C');
-                    }
-                    //$workingPeriod->setCat($employee->getCategorie());
-                    //$workingPeriod->setProf($test2);
-                    //dd($form->getData());
-
-                    $entityManager->persist($workingPeriod);
-                    $entityManager->flush();
-
-                    return $this->redirectToRoute('app_calcul_anciennete', ['id' => $employee->getId()]);
+                //Si on reprend une période du privé, le type =2 on fixe la catégorie à P
+                if ($workingPeriod->getType() == 2) {
+                    $workingPeriod->setCat('P');
+                }
+                else {
+                    $workingPeriod->setCat('C');
                 }
 
-            return $this->render('calcul_anciennete/indexC.html.twig', [
-                'employee' => $employee,
-                'form' => $form->createView(),
-                'form2' => $form2->createView(),
-                'workingperiod' => $workingPeriod,
-                'wps' => $workingPeriodRepository->findBy(['employee_id' => $id])
-            ]);
+                //$workingPeriod->setCat($employee->getCategorie());
+                //$workingPeriod->setProf($test2);
+                //dd($form->getData());
+
+                $entityManager->persist($workingPeriod);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('app_calcul_anciennete', ['id' => $employee->getId()]);
+            }
+
         }
+        return $this->render('calcul_anciennete/indexC.html.twig', [
+            'employee' => $employee,
+            'form' => $form->createView(),
+            'form2' => $form2->createView(),
+            'workingperiod' => $workingPeriod,
+            'wps' => $workingPeriodRepository->findBy(['employee_id' => $id])
+        ]);
 
     }
 

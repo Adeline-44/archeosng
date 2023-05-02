@@ -1,114 +1,109 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container mx-auto pt-5">
-        <div class="row justify-content-center rounded-pill">
-            <div class="titre col-5 text-white">
-                <h1>Reprise d'activités</h1>
-            </div>
-            <div class="col-2 titre">
-                <div class="row py-0"><h5>Service carrières</h5></div>
-                <div class="row py-0"><h6>02.40.20.00.71</h6></div>
-            </div>
-            <div class="col-2 titre">
-                <img src={{ asset('img/Logo.png') }} width=50% alt="Logo CDG">
-            </div>
+<div class="container mx-auto pt-5">
+    <!-- En tête -->
+    <div class="row justify-content-center rounded-pill">
+        <div class="titre col-5 text-white">
+            <h1>Reprise d'activités</h1>
         </div>
-        <div class="row justify-content-center">
-            <div class="col-3 pt-3 control-panel">
-                <p><strong>{{ employee.lastName }} </strong>{{ employee.firstName }}</p>
-                <a href="{{ path('app_nouveau_calcul') }}">
-                    <button type="button" class="btn btn-outline-primary">Nouveau</button>
-                </a>
-            </div>
-
-            <div class="col-3 pt-3 control-panel">
-
-            </div>
-
-            <div class="col-3 pt-3 control-panel">
-                <a href="" target="_blank">
-                    <button type="button" class="btn btn-success">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer" viewBox="0 0 16 16">
-                            <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
-                            <path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/>
-                        </svg>
-                        Imprimer</button>
-                </a>
-                <a href="{{ path('help') }}" target="_blank" class="btn btn-primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-question" viewBox="0 0 16 16">
-                        <path d="M8.05 9.6c.336 0 .504-.24.554-.627.04-.534.198-.815.847-1.26.673-.475 1.049-1.09 1.049-1.986 0-1.325-.92-2.227-2.262-2.227-1.02 0-1.792.492-2.1 1.29A1.71 1.71 0 0 0 6 5.48c0 .393.203.64.545.64.272 0 .455-.147.564-.51.158-.592.525-.915 1.074-.915.61 0 1.03.446 1.03 1.084 0 .563-.208.885-.822 1.325-.619.433-.926.914-.926 1.64v.111c0 .428.208.745.585.745z"/>
-                        <path d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911l-1.318.016z"/>
-                        <path d="M7.001 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0z"/>
-                    </svg> Aide
-                    <!--
-                    <button type="button" class="btn btn-outline-secondary">Aide</button>
-                    -->
-                </a>
-            </div>
+        <div class="col-2 titre">
+            <div class="row py-0"><h5>Service carrières</h5></div>
+            <div class="row py-0"><h6>02.40.20.00.71</h6></div>
+        </div>
+        <div class="col-2 titre">
+            <img src={{ asset('img/Logo.png') }} width=50% alt="Logo CDG">
+        </div>
+    </div>
+    <!-- Identité personne en tête -->
+    <div class="row justify-content-center">
+        <div class="col-3 pt-3 control-panel">
+            <p><strong>{{ employee.lastName }} </strong>{{ employee.firstName }}</p>
+            <a href="{{ path('app_nouveau_calcul') }}">
+            <button type="button" class="btn btn-outline-primary">Nouveau</button>
+            </a>
         </div>
 
-        <div class="row justify-content-center">
-            <div class="col-2  pt-3">
-                <h3><strong>{{ employee.lastName }} </strong>{{ employee.firstName }}</h3>
-            </div>
-            <div class="col-3  pt-3">
+        <div class="col-3 pt-3 control-panel">
 
-            </div>
-            <div class="col-4 pt-3">
-                <span class="uid"> UID : </span><span class="alert-info" font-size="0.5rem">{{ employee.UID }}</span>
-            </div>
         </div>
 
-        <div class="row justify-content-center">
-            <div class="col-9 page-help pt-3 control-panel">
-                {% for message in app.flashes('success') %}
-                    <div class="alert alert-success">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-                {{ form_start(form) }}
-                <div class="my-custom-class-for-errors">
-                    {{ form_errors(form) }}
+        <div class="col-3 pt-3 control-panel">
+            <a href="" target="_blank">
+                <button type="button" class="btn btn-success">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer" viewBox="0 0 16 16">
+                <path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
+                <path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/>
+                </svg>
+                Imprimer</button>
+            </a>
+            <a href="{{ path('help') }}" target="_blank" class="btn btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-patch-question" viewBox="0 0 16 16">
+                <path d="M8.05 9.6c.336 0 .504-.24.554-.627.04-.534.198-.815.847-1.26.673-.475 1.049-1.09 1.049-1.986 0-1.325-.92-2.227-2.262-2.227-1.02 0-1.792.492-2.1 1.29A1.71 1.71 0 0 0 6 5.48c0 .393.203.64.545.64.272 0 .455-.147.564-.51.158-.592.525-.915 1.074-.915.61 0 1.03.446 1.03 1.084 0 .563-.208.885-.822 1.325-.619.433-.926.914-.926 1.64v.111c0 .428.208.745.585.745z"/>
+                <path d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911l-1.318.016z"/>
+                <path d="M7.001 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0z"/>
+                </svg> Aide
+            </a>
+        </div>
+    </div>
+    <!-- Identité personne -->
+    <div class="row justify-content-center">
+        <div class="col-2  pt-3">
+            <h3><strong>{{ employee.lastName }} </strong>{{ employee.firstName }}</h3>
+        </div>
+        <div class="col-3  pt-3">
+        </div>
+        <div class="col-4 pt-3">
+            <span class="uid"> UID : </span><span class="alert-info" font-size="0.5rem">{{ employee.UID }}</span>
+        </div>
+    </div>
+    <!-- Formulaire -->
+    <div class="row justify-content-center">
+        <div class="col-9 page-help pt-3 control-panel">
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{ message }}
                 </div>
-                <div class="row mb-3">
-                    <div class="col-6">{{ form_label(form.startDate) }}</div>
-                    <div class="col-3">{{ form_widget(form.startDate) }}</div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-6">{{ form_label(form.endDate) }}</div>
-                    <div class="col-3">{{ form_widget(form.endDate) }}</div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-6">{{ form_label(form.type) }}</div>
-                    <div class="col-3">{{ form_widget(form.type) }}</div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-6"></div>
-                    <div class="col-3">{{ form_widget(form.cat) }}</div>
-                </div>
-                <div class="row mb-3">
-                    <div class="col-6"></div>
-                    <div class="col-6">{{ form_widget(form.prof) }}</div>
-                </div>
-
-                <div class="row mb-3">
-                    <div class="col-6">{{ form_rest(form) }}</div>
-                </div>
-
-
-
-                <!-- Affichage des périodes si elles existent -->
-        <nav>
-            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <button class="nav-link active" id="nav-total-tab" data-bs-toggle="tab" data-bs-target="#nav-total" type="button" role="tab"
-                        aria-controls="nav-total" aria-selected="true">Total</button>
-                <button class="nav-link" id="nav-public-tab" data-bs-toggle="tab" data-bs-target="#nav-public" type="button" role="tab"
-                        aria-controls="nav-public" aria-selected="false">Périodes Secteur Public</button>
-                <button class="nav-link" id="nav-prive-tab" data-bs-toggle="tab" data-bs-target="#nav-prive" type="button" role="tab"
-                        aria-controls="nav-prive" aria-selected="false">Périodes Secteur Privé</button>
+            {% endfor %}
+            {{ form_start(form) }}
+            <div class="my-custom-class-for-errors">
+                {{ form_errors(form) }}
             </div>
-        </nav>
+            <div class="row mb-3">
+                <div class="col-6">{{ form_label(form.startDate) }}</div>
+                <div class="col-3">{{ form_widget(form.startDate) }}</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-6">{{ form_label(form.endDate) }}</div>
+                <div class="col-3">{{ form_widget(form.endDate) }}</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-6">{{ form_label(form.type) }}</div>
+                <div class="col-3">{{ form_widget(form.type) }}</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-6"></div>
+                <div class="col-3">{{ form_row(form.cat) }}</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-6"></div>
+                <div class="col-6">{{ form_row(form.prof) }}</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-6">{{ form_rest(form) }}</div>
+            </div>
+
+           <!-- Affichage des périodes si elles existent -->
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <button class="nav-link active" id="nav-total-tab" data-bs-toggle="tab" data-bs-target="#nav-total" type="button" role="tab"
+                            aria-controls="nav-total" aria-selected="true">Total</button>
+                    <button class="nav-link" id="nav-public-tab" data-bs-toggle="tab" data-bs-target="#nav-public" type="button" role="tab"
+                            aria-controls="nav-public" aria-selected="false">Périodes Secteur Public</button>
+                    <button class="nav-link" id="nav-prive-tab" data-bs-toggle="tab" data-bs-target="#nav-prive" type="button" role="tab"
+                            aria-controls="nav-prive" aria-selected="false">Périodes Secteur Privé</button>
+                </div>
+            </nav>
 
         <div class="tab-content container" id="nav-tabContent">
             <!-- Onglet total -->
@@ -119,10 +114,14 @@
                         {% set totalPrive = 0 %}
                         {% set totalJPCPublic = 0 %}
                         {% set totalJPCPrive = 0 %}
+                        {% set totalTMP = 0 %}
+                        {% set totalTMPP = 0 %}
                         {% set jmaPub = '' %}
                         {% set jmaPrive = '' %}
                         {% set jpcPub = '' %}
                         {% set jpcPrive = '' %}
+                        {% set totalPubMil = '' %}
+                        {% set totalPrivMil = '' %}
                         {% if wps %}
                             {% for wp in wps %}
                                 {% if wp.type == 1 %}
@@ -130,11 +129,16 @@
                                     {% set totalJPCPublic = totalJPCPublic+wp.getJPC() %}
                                     {% set jmaPub = wp.getJMA(totalFP) %}
                                     {% set jpcPub = wp.getJMA(totalJPCPublic) %}
+                                    {% set totalTMP = totalJPCPublic + employee.militaireDays %}
+                                    {% set totalPubMil = wp.getJMA(totalTMP) %}
+                                    {% set totalPrivMil =wp.getJMA(employee.militaireDays) %}
                                 {% elseif wp.type == 2%}
                                     {% set totalPrive = totalPrive+wp.getJR() %}
                                     {% set totalJPCPrive = totalJPCPrive+wp.getJPC() %}
                                     {% set jmaPrive = wp.getJMA(totalPrive) %}
                                     {% set jpcPrive = wp.getJMA(totalJPCPrive) %}
+                                    {% set totalTMPP = totalJPCPrive + employee.militaireDays %}
+                                    {% set totalPrivMil = wp.getJMA(totalTMPP) %}
                                 {% endif %}
                             {% endfor %}
 
@@ -163,8 +167,8 @@
                         <tr>
                             <td rowspan="2"><b>Total du nombre de jours à prendre en compte</b><br/>
                             </td>
-                            <td class="spch" id="tab-tt-spc-rd" style="color:#666">{{ totalJPCPublic }}</td>
-                            <td class="spvh" id="tab-tt-spv-rd" style="color:#666">{{ totalJPCPrive }}</td>
+                            <td class="spch" id="tab-tt-spc-rd" style="color:#666">{{ totalJPCPublic|round(0,'floor') }}</td>
+                            <td class="spvh" id="tab-tt-spv-rd" style="color:#666">{{ totalJPCPrive|round(0,'floor') }}</td>
                         </tr>
 
                         <tr>
@@ -192,8 +196,8 @@
                     <table class="data" style="margin:1em 0;background:#333;">
                         <tr>
                             <td rowspan="2"><b>Total</b></td>
-                            <td class="spch" id="total-spc"><b>{{ totalJPCPublic + employee.militaireDays }}</b></td>
-                            <td class="spvh" id="total-spv"><b>{{ totalJPCPrive }}</b></td>
+                            <td class="spch" id="total-spc"><b>{{ totalPubMil }}</b></td>
+                            <td class="spvh" id="total-spv"><b>{{ totalPrivMil }}</b></td>
                         </tr>
                     </table>
 
@@ -208,7 +212,7 @@
                         <th>Période</th>
                         <th>Niveau</th>
                         <th>Nombre de jours retenus</th>
-                        <th>Nombre de jours pris en compte</th>
+                        <!--<th>Nombre de jours pris en compte</th>-->
                         <th>&nbsp;</th>
                     </tr>
                     </thead>
@@ -226,7 +230,7 @@
                                 </td>
                                 <td style="text-align: right;">{{ wp.cat }}</td>
                                 <td style="text-align: right;">{{ wp.getJR() }}</td>
-                                <td style="text-align: right;">{{ wp.getJPC() }}</td>
+                               <!--<td style="text-align: right;">wp.getJPC() </td>-->
                                 <td style="text-align: center;">
                                     <a href="{{ path('supprimer_wp', {wp: wp.id}) }}">
                                         <button class="button btn-delete btn-del-period-sp" style="margin:0px" type="button" href value="X">
@@ -252,13 +256,8 @@
 
             </div>
 
-            {% if wps %}
-            {% set totalPrive = 0 %}
-            {% for wp in wps %}
-            {% if wp.type == 2 %} {# Secteur privé #}
+           <!-- Onglet privé -->
             <div class="tab-pane fade" id="nav-prive" role="tabpanel" aria-labelledby="nav-prive-tab">
-
-
                 <table id="tab-period-spv" class="data">
                     <thead>
                     <tr>
@@ -269,7 +268,10 @@
                     </tr>
                     </thead>
                     <tbody>
-
+                     {% if wps %}
+                     {% set totalPrive = 0 %}
+                     {% for wp in wps %}
+                     {% if wp.type == 2 %} {# Secteur privé #}
                     <tr>
                         <td style="text-align: center;">
                             {{ (wp.startDate|date('d/m/Y')) }}
@@ -291,21 +293,65 @@
                     {% endfor %}
                     {% else %}
                         <td class="nodata" colspan="7">aucune période de travail</td>
-                    {% endif %}
                     </tbody>
                 </table>
+                {% endif %}
                 <table class="data">
                     <tr>
                         <td style="text-align:center;font-weight:bold;width:550px;background:#555;color:#fff;">nombre total de jours retenus pour le secteur privé</td>
-                        <td style="text-align:center;font-weight:bold;background:#0073EA;color:#fff;"><span class="tab-tt-spv-j"</span>{{ totalPrive }}</td>
+                        <td style="text-align:center;font-weight:bold;background:#0073EA;color:#fff;"><span class="tab-tt-spv-j"</span>{{ totalPrive }} </td>
                     </tr>
                 </table>
             </div>
-
         </div>
-
     </div>
-
-
-
+</div>
 {% endblock %}
+
+{% block javascripts %}
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+
+<script>
+window.onload = () => {
+    var $type = $('#working_period_type')
+    //qd on sélectionne le type
+    $type.change(function() {
+    //on récupère le formulaire
+    var $form = $(this).closest('form');
+    //on génère des data vide où on va mettre le type sélectionné
+    var data = {};
+    data[$type.attr('name')] = $type.val();
+    console.log(data);
+
+    if($type.val()==1){
+        // on submit les data en ajax
+        $.ajax({
+            url: $form.attr('action'),
+            type: $form.attr('method'),
+            data: data,
+            complete: function(html) {
+                $('#working_period_cat').replaceWith($(html.responseText).find('#working_period_cat'));
+            }
+        });
+    }
+    else {
+        $.ajax({
+            url: $form.attr('action'),
+            type: $form.attr('method'),
+            data: data,
+            complete: function(html) {
+                $('#working_period_prof').replaceWith($(html.responseText).find('#working_period_prof'));
+            }
+        });
+    }
+  })
+
+   };
+
+                </script>
+
+            {% endblock %}

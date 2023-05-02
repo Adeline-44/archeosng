@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\WorkingPeriodRepository;
+use DateInterval;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpKernel\Log\Logger;
 use Symfony\Component\Validator\Constraints\Date;
@@ -135,7 +136,6 @@ class WorkingPeriod
      */
     public function getJR(): int
     {
-        $days = 0;
         $cstart = new \DateTimeImmutable();
         $cend = new \DateTimeImmutable();
 
@@ -146,9 +146,44 @@ class WorkingPeriod
         $cendDayOfMonth = $cend->format('d');
         $cstartMonth = $cstart->format('m');
         $cendMonth = $cend->format('m');
-        $cstartYear = $cstart->format('y');
-        $cendYear = $cend->format('y');
+        $cstartYear = $cstart->format('Y');
+        $cendYear = $cend->format('Y');
 
+        $diff = $cstart->diff($cend);
+        $diffD = $diff->format('%d');
+        $diffM = $diff->format('%m');
+        $diffY = $diff->format('%y');
+
+        if($cstartMonth == $cendMonth && $cstartMonth ==2 && $cstartDayOfMonth ==1 && $cendDayOfMonth ==28) { $diffD = 30; }
+        elseif($cstartMonth == $cendMonth && $cstartYear == $cendYear && $cendDayOfMonth!=31) { $diffD +=1; }
+        elseif($cstartDayOfMonth ==1 && $cendDayOfMonth ==30) { $diffD = 30; }
+        elseif($cstartDayOfMonth ==1 && $cendDayOfMonth ==31) { $diffD = 30; }
+        elseif($cstartDayOfMonth ==16 && $cendDayOfMonth ==30) { $diffD = 15; }
+        elseif($cstartDayOfMonth < $cendDayOfMonth &&$cendDayOfMonth !=31) { $diffD +=1; }
+
+        $cstartMonth = $cstart->format('m');
+        $cendMonth = $cend->format('m');
+        $total =0;
+
+        $total += $diffD+$diffM*30+$diffY*360;
+
+        return $total;
+
+        /*$days = 0;
+        $cstart = new \DateTimeImmutable();
+        $cend = new \DateTimeImmutable();
+
+        $cstart = ($this->startDate);
+        $cend = ($this->endDate);
+        $ctemp = clone $cend;
+        $cstartDayOfMonth = $cstart->format('d');
+        $cendDayOfMonth = $cend->format('d');
+        $cstartMonth = $cstart->format('m');
+        $cendMonth = $cend->format('m');
+        $cstartYear = $cstart->format('Y');
+        $cendYear = $cend->format('Y');
+
+        //cas même mois même année
         if (($cstartYear == $cendYear) && ($cstartMonth == $cendMonth)) {
             if (date_format($cend, 'L') == 1 && $cendMonth == '02') {
                 $days += ($cendDayOfMonth >= 29 ? 30 : $cendDayOfMonth) + 1 - $cstartDayOfMonth;
@@ -158,59 +193,45 @@ class WorkingPeriod
                 $days += (min(30, $cendDayOfMonth) + 1) - $cstartDayOfMonth;
             }
         }
+
         else {
-            /*$days += 31-$cstartDayOfMonth;
-            $ctemp = $cend;
+            // calcul du reliquat en jours pour la période de départ
+            // selon la règle des trentièmes, on compte ici 30 jours
+            // même en février, année bissextile ou non.
+            // Ainsi pour une période qui débute le 25/02,
+            // le début de la période jusqu'au mois de mars, comptera 5 jours
+            $days += 31 - $cstartDayOfMonth;
 
-            $ctemp->sub(new \DateInterval('P1M')); // on enlève un mois
+
             $ctempMonth = $ctemp->format('m');
-            $ctempYear = $ctemp->format('y');
+            $ctempYear = $ctemp->format('Y');
             $ctemp = date_create($ctempYear.'-'.$ctempMonth.'-01');
-
-            $current = $ctempYear+$ctempMonth;
-            $start = $cstartYear+$cstartMonth;
-			while ($current > $start) {
-                $days += 30;
-                $ctemp->sub(new \DateInterval('P1M'));
-                //ctemp.add(GregorianCalendar.MONTH,-1);
-                $ctempMonth = $ctemp->format('m');
-                $ctempYear = $ctemp->format('y');
-                $current = $ctempYear + $ctempMonth;
-                //current = Integer.parseInt(ctemp.get(GregorianCalendar.YEAR) + String.format("%02d", ctemp.get(GregorianCalendar.MONTH)));
-                $start = $cstartYear+$cstartMonth;
-                //start = Integer.parseInt(cstartYear + String.format("%02d", cstartMonth));
-                //Logger.debug("%s >= %s", current, start);
+            $ctemp->sub(new DateInterval('P1M'));
+            $ctempMonth = $ctemp->format('m');
+            $ctempYear = $ctemp->format('Y');
+            $current = $ctempYear + $ctempMonth;
+            $start = $cstartYear + $cstartMonth;
+            while ($current > ($start)) {
+                $days +=30;
+                $ctemp->sub(new DateInterval('P1M'));
+                $ctempMonth2 = $ctemp->format('m');
+                $ctempYear2 = $ctemp->format('Y');
+                $current = $ctempYear2 + $ctempMonth2;
+                $start = $cstartYear + $cstartMonth;
             }
-
-			// calcul du reliquat en jours pour la période de fin
-			// on distingue ici le cas de février où une période
-			// qui se termine le 27 se verra ajouter 27 jours, alors que si elle
-			// se termine le 28 une année non bissextile, se verra ajouter 30 jours.
-			if (date_format($cend, 'L') == 1 && $cendMonth == '02') {
-                $days += $cendDayOfMonth >= 29 ? 30 : $cendDayOfMonth;
-            } else if ($cendMonth == '02'){
-                $days += $cendDayOfMonth >= 28 ? 30 : $cendDayOfMonth;
+            // calcul du reliquat en jours pour la période de fin
+            // on distingue ici le cas de février où une période
+            // qui se termine le 27 se verra ajouter 27 jours, alors que si elle
+            // se termine le 28 une année non bissextile, se verra ajouter 30 jours.
+            if (date_format($cend, 'L') == 1 && $cendMonth == '02') {
+                $days += ($cendDayOfMonth >= 29 ? 30 : $cendDayOfMonth);
+            } else if ($cendMonth == '02') {
+                $days += ($cendDayOfMonth >= 28 ? 30 : $cendDayOfMonth);
             } else {
-                $days += $cendDayOfMonth >= 30 ? 30 : $cendDayOfMonth;
-            }*/
-            $diff = $cstart->diff($cend);
-            $months = $diff->y * 12 + $diff->m;
-            $days += floor(($diff->d + $months * 30 + $diff->h / 24));
-            $thirties = ($days * 30);
-            $test = ($diff->d)+1;
-
-            if($days% 12 == 0) { $days = $days; }
-            else if ($days% 12 == 2)$days = $days+1;
-            else if ($days% 12 == 3)$days = $days+2;
-            else if ($days% 12 == 4)$days = $days+1;
-            else $days=$days+1;
-
+                $days += ($cendDayOfMonth >= 30 ? 30 : $cendDayOfMonth);
+            }
         }
-        //echo "Différence en trentièmes : " . $thirties . "";
-        //echo "Différence en jours : " . $days . "";
-        //echo "Différence en années, mois et jours : " . $diff->y . " ans, " . $diff->m . " mois, " . $test . " jours";
-        return $days;
-
+        return $days;*/
     }
 
     /**
@@ -259,7 +280,7 @@ class WorkingPeriod
      * Calcul du nombre de jour à prendre en compte
      * @return int
      */
-    public function getJPC(): int
+    public function getJPC(): float
     {
         $jpc = 0;
         // on récupère les jours et annees retenus
@@ -279,12 +300,12 @@ class WorkingPeriod
                         // Catégorie A - reprise A
                         if($anneesRetenues <= 12) {
                             $val = 0.5 * $joursRetenus;
-                            $jpc = round($val, 0,PHP_ROUND_HALF_UP);
+                            $jpc = round($val, 0,PHP_ROUND_HALF_DOWN);
                         }
                         else {
                             $temp = $joursRetenus - 4320;
                             $jpc = 2160 + $temp*0.75;
-                            $jpc = round($jpc, 0,PHP_ROUND_HALF_UP);
+                            $jpc = round($jpc, 0,PHP_ROUND_HALF_DOWN);
                         }
                         break;
                     case "B":
@@ -345,6 +366,8 @@ class WorkingPeriod
                 // on récupére monthbase et weekbase
                 $month = $this->getEmployeeId()->getMonthBase();
                 $week = $this->getEmployeeId()->getWeekBase();
+                //$joursRetenus = $this->getJR();
+                //dd($joursRetenus);
                 $etpjour = $week * 52/360;
                 //$comparaison = $joursRetenus * $etpjour;
                 $test = $heures/$joursRetenus;
@@ -353,8 +376,10 @@ class WorkingPeriod
                     $jtemp = $joursRetenus * $heures/$heures;
                 }
                 else {
-                    $jtemp = $heures*$joursRetenus/$month;
+                    $jtemp = ($heures/(($month/30) * $joursRetenus)) * $joursRetenus;
                 }
+                $jpc = $jtemp;
+                /*
                 switch ($type) {
                     case 1:
                         $jpc = 3/4 * $jtemp;
@@ -363,10 +388,24 @@ class WorkingPeriod
                         $jpc = 0.5*$jtemp;
                         break;
 
-                }
+                }*/
             break;
         }
+        $jpc=round($jpc,2);
+        return $jpc;
+    }
 
+    public function getJPCC($jtemp): int {
+        $type = $this->getType();
+        switch ($type) {
+            case 1:
+                $jpc = 3/4 * $jtemp;
+                break;
+            case 2:
+                $jpc = 0.5*$jtemp;
+                break;
+
+        }
         return $jpc;
     }
 

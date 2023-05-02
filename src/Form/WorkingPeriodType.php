@@ -82,7 +82,6 @@ class WorkingPeriodType extends AbstractType
                 $form->add('prof', EntityType::class, [
                     'class' => Profession::class,
                     'choice_label' => 'intitule'
-
                 ]);
             }
         };

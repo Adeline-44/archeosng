@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Employee;
 use App\Form\EventSubscriber\CalculMonthBaseSubscriber;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
@@ -24,26 +25,36 @@ class EmployeeTypeCType extends AbstractType
                 'label' => 'Base du stagiaire de catégorie C',
                 'attr'=> [
                     'class' => '',
-                    'size' => 4
+                    'size' => 4,
+                    'onblur' => 'calculer()'
                 ],
                 'constraints' => [
                     new Positive(['message' => 'La valeur saisie doit être positive']),
                     new NotNull(['message' => 'Valeur obligatoire'])
                 ]
             ])
-            ->add('monthBase', TextType::class, [
+            ->add('monthBase', NumberType::class, [
                 'required' => false,
-                'mapped' => false,
+                'label' => 'soit',
+                'disabled' => true,
                 'attr' =>[
                     'class' => '',
-                    'size' => 4,
-                    'value' => 151.67
+                    'size' => 4
+
+
                 ]
             ])
 
+            /*->add('submit', SubmitType::class,
+                [
+                    'label' =>'OK',
+                    'attr' => ['class' => 'btn btn-primary', 'onClick' =>"calculer()"]
+                ]);*/
+            ;
+
         ;
 
-
+/*
         $formModifier = function (FormInterface $form, $weekBase = 35) {
             $monthBase = round($weekBase * 52/12, 2);
             $form->add('monthBase', TextType::class, [
@@ -60,7 +71,7 @@ class EmployeeTypeCType extends AbstractType
                 $weekBase = $event->getForm()->getData();
                 $formModifier($event->getForm()->getParent(), $weekBase);
             }
-        );
+        );*/
     }
 
     public function configureOptions(OptionsResolver $resolver): void
